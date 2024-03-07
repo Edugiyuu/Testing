@@ -15,4 +15,12 @@ console.log(arr); */
  
   const primeiraPlanilha = workbook.Sheets[workbook.SheetNames[0]];
   const dados = XLSX.utils.sheet_to_json(primeiraPlanilha);
-  console.log("Dados da primeira planilha:", dados[0]);
+  console.log( dados);
+  var total = 0
+  
+  for (let i = 0; i < dados.length; i++) {
+    total += dados[i].valor
+    
+  }
+
+  console.log(total);
