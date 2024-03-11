@@ -31,9 +31,6 @@ console.log(arr); */
     }else if (dados[i].concept === 'cash receipt') {
       totalCashReceipt += dados[i].valor
     }
-
-    
-
     
   }
   const planilhaTotal = XLSX.utils.aoa_to_sheet(

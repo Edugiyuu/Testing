@@ -8,35 +8,82 @@ const dados = XLSX.utils.sheet_to_json(primeiraPlanilha);
 
 var gastos = 0;
 var colunaDeGastos = [];
+var colunaDeRecebidos = [];
 var colunaDeTipoDeGastos = [];
-//const descricao = dados[i]["Descrição"];
+var colunaDeTipoDeRecebidos = [];
+var colunaDeNomes = [];
+
 
 for (let i = 0; i < dados.length; i++) {
+
     if (dados[i].Valor < 0) {
+
         gastos += dados[i].Valor;
+        const descricaoParts = dados[i]['Descrição'].split(' - ');
+        const nomeDaPessoa = descricaoParts[1]
+        const TipoDeGasto = descricaoParts[0]
+
         colunaDeGastos.push([`R$ ${dados[i].Valor}`]);
+        colunaDeTipoDeGastos.push([TipoDeGasto]);
+        colunaDeNomes.push([nomeDaPessoa]);
+
+
+    } else {
+        const descricaoParts = dados[i]['Descrição'].split(' - ');
+        const TipoDeRecebimento = descricaoParts[0]
+        colunaDeRecebidos.push([`R$ ${dados[i].Valor}`]);
+        colunaDeTipoDeRecebidos.push([TipoDeRecebimento]);
+
     }
-    /* if (dados[i]['Descrição'].includes('Transferência enviada pelo Pix')) {
-        colunaDeTipoDeGastos.push([`R$ ${dados[i]['Descrição']}`]);
-    } */
+
 }
 
+/* for (let i = 0; i < dados.length; i++) {
+    
+    colunaDeGastos.push([`R$ ${dados[i].Valor}`]);
+} */
+
+
+/* console.log(colunaDeGastos);
+console.log(colunaDeRecebidos); */
+
+
+XLSX.utils.book_append_sheet(arquivo, {}, "Recebidos");
+XLSX.utils.book_append_sheet(arquivo, {}, "Gastos");
+const Gastos = arquivo.Sheets["Gastos"];
+const Recebidos = arquivo.Sheets["Recebidos"];
+
+
+/*  XLSX.utils.sheet_add_json(novaPlanilha, [
+    { "Gastos": [colunaDeGastos], "valor1": '' },[colunaDeGastos],{ "Coluna1": [1], "Valor2": null }
+  ], { origin: "A1" });  */
+
+
+const wscols = [
+    { wch: 13 }, // primeira coluna 
+    { wch: 30 }, // segunda coluna 
+    { wch: 20 }   // terceira coluna
+];
+
+// ------------Gastos---------------------
+Gastos['!cols'] = wscols;
 
 colunaDeGastos.unshift(["Gastos"]);
-console.log(colunaDeTipoDeGastos);
-console.log(colunaDeGastos);
+colunaDeTipoDeGastos.unshift(["Tipos de gastos"]);
+colunaDeNomes.unshift(["Nomes"]);
+XLSX.utils.sheet_add_aoa(Gastos, colunaDeGastos, { origin: "A1" });
+XLSX.utils.sheet_add_aoa(Gastos, colunaDeTipoDeGastos, { origin: "B1" });
+XLSX.utils.sheet_add_aoa(Gastos, colunaDeNomes, { origin: "C1" });
 
-var ColunaDeGastosPraPlanilha = XLSX.utils.aoa_to_sheet(colunaDeGastos);
-var ColunaDeTipoGastosPraPlanilha = XLSX.utils.aoa_to_sheet(colunaDeTipoDeGastos);
+//-------------Recebimentos-------------------
+Recebidos['!cols'] = wscols;
 
-// Criar um novo arquivo XLSX
-/* const novoArquivo = XLSX.utils.book_new();
-XLSX.utils.book_append_sheet(novoArquivo, primeiraPlanilha, "Planilha 1");
- */
-// Escrever o novo arquivo XLSX
+colunaDeRecebidos.unshift(["Recebidos"]);
+colunaDeTipoDeRecebidos.unshift(["Tipos de Recebimentos"]);
+XLSX.utils.sheet_add_aoa(Recebidos, colunaDeRecebidos, { origin: "A1" });
+XLSX.utils.sheet_add_aoa(Recebidos, colunaDeTipoDeRecebidos, { origin: "B1" });
 
-
- XLSX.utils.book_append_sheet(arquivo, ColunaDeGastosPraPlanilha, "Planilha");
 XLSX.writeFile(arquivo, "./ArquivosFeitos/arquivoFeito.xlsx");
 
-console.log(dados); 
+//console.log(dados); 
+
