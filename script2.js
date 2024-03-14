@@ -2,6 +2,32 @@ const XLSX = require("xlsx");
 var prompt = require('prompt-sync')();
 const fs = require('fs')
 var colors = require('colors/safe');
+const cfonts = require('cfonts');
+cfonts.say('Csv to xlsx', {
+	font: 'simple',              // define the font face
+	align: 'left',              // define text alignment
+    colors: ['system'],       // define all colors
+	background: 'transparent',  // define the background color, you can also use `backgroundColor` here as key
+	letterSpacing: 3,           // define letter spacing
+	lineHeight: 1,              // define the line height
+	space: true,                // define if the output text should have empty lines on top and on the bottom
+	maxLength: '0',             // define how many character can be on one line
+	gradient: ['#20A4F3', '#81E979'],
+	independentGradient: false, // define if you want to recalculate the gradient for each new line
+    transitionGradient: true,  // define if this is a transition between colors directly
+	env: 'node'                 // define the environment cfonts is being executed in
+});
+/* 
+console.log('Nome do do seu arquivo csv:');
+var arquivoCsv = prompt("")
+
+try{
+    var arquivo = XLSX.readFile(`./ArquivosNãoFeitos/${arquivoCsv}.csv`, {codepage: 65001 });
+}catch (error) {
+    console.log('Atenção: Coloque seu arquivo csv na Pasta "ArquivosNãoFeitos"\nE execute novamente');
+    return
+} */
+
 
 console.log('Quanto você planejava gastar?');
 var GastosPlanejados = prompt(0)
@@ -9,6 +35,7 @@ if (isNaN(Number(GastosPlanejados))) {
     console.log('isso não é um numero.. Tente denovo');
     GastosPlanejados = prompt(0)
 }
+
 
 const arquivo = XLSX.readFile("./ArquivosNãoFeitos/arquivoNaoFeito.csv", {codepage: 65001 });
 
@@ -20,31 +47,42 @@ var gastos = 0;
 var entradas = 0;
 var colunaDeGastos = [];
 var colunaDeRecebidos = [];
+
+
+var colunaDeNomesGastos = [];
 var colunaDeTipoDeGastos = [];
+var colunaDoBancoGastos = [];
+var colunaDosDadosBancoGastos = [];
+//---------------------------
+var colunaDeNomesRecebidos = [];
 var colunaDeTipoDeRecebidos = []
-var colunaDeNomes = [];
 
 
 for (let i = 0; i < dados.length; i++) {
 
     if (dados[i].Valor < 0) {
-
         gastos += dados[i].Valor;
-        const descricaoParts = dados[i]['Descrição'].split(' - ');
+        var descricaoParts = dados[i]['Descrição'].split(' - ');
+        const nomeDoBanco = descricaoParts[3]
+        const dadosDoBanco = descricaoParts[2]
         const nomeDaPessoa = descricaoParts[1]
         const TipoDeGasto = descricaoParts[0]
 
         colunaDeGastos.push([`R$ ${dados[i].Valor}`]);
         colunaDeTipoDeGastos.push([TipoDeGasto]);
-        colunaDeNomes.push([nomeDaPessoa]);
+        colunaDeNomesGastos.push([nomeDaPessoa]);
+        colunaDoBancoGastos.push([nomeDoBanco]);
+        colunaDosDadosBancoGastos.push([dadosDoBanco])
 
 
     } else {
         entradas += dados[i].Valor;
         const descricaoParts = dados[i]['Descrição'].split(' - ');
+        const nomeDaPessoa = descricaoParts[1]
         const TipoDeRecebimento = descricaoParts[0]
         colunaDeRecebidos.push([`R$ ${dados[i].Valor}`]);
         colunaDeTipoDeRecebidos.push([TipoDeRecebimento]);
+        colunaDeNomesRecebidos.push([nomeDaPessoa]);
     }
 
 }
@@ -75,7 +113,9 @@ const Total = arquivo.Sheets["Total"];
 const wscols = [
     { wch: 13 }, // primeira coluna 
     { wch: 30 }, // segunda coluna 
-    { wch: 20 }   // terceira coluna
+    { wch: 25 },   // terceira coluna
+    { wch: 20 },
+    { wch: 20 },
 ];
 
 // ------------Gastos---------------------
@@ -83,18 +123,24 @@ Gastos['!cols'] = wscols;
 
 colunaDeGastos.unshift(["Gastos"]);
 colunaDeTipoDeGastos.unshift(["Tipos de gastos"]);
-colunaDeNomes.unshift(["Nomes"]);
+colunaDeNomesGastos.unshift(["Nomes"]);
+colunaDosDadosBancoGastos.unshift(['Dados Do Banco'])
+colunaDoBancoGastos.unshift(["Banco"]);
 XLSX.utils.sheet_add_aoa(Gastos, colunaDeGastos, { origin: "A1" });
 XLSX.utils.sheet_add_aoa(Gastos, colunaDeTipoDeGastos, { origin: "B1" });
-XLSX.utils.sheet_add_aoa(Gastos, colunaDeNomes, { origin: "C1" });
+XLSX.utils.sheet_add_aoa(Gastos, colunaDeNomesGastos, { origin: "C1" });
+XLSX.utils.sheet_add_aoa(Gastos, colunaDosDadosBancoGastos, { origin: "D1" });
+XLSX.utils.sheet_add_aoa(Gastos, colunaDoBancoGastos, { origin: "E1" });
 
 //-------------Recebimentos-------------------
  Recebidos['!cols'] = wscols;
 
 colunaDeRecebidos.unshift(["Recebidos"]);
 colunaDeTipoDeRecebidos.unshift(["Tipos de Recebimentos"]);
+colunaDeNomesRecebidos.unshift(["Nomes"]);
 XLSX.utils.sheet_add_aoa(Recebidos, colunaDeRecebidos, { origin: "A1" });
 XLSX.utils.sheet_add_aoa(Recebidos, colunaDeTipoDeRecebidos, { origin: "B1" }); 
+XLSX.utils.sheet_add_aoa(Recebidos, colunaDeNomesRecebidos, { origin: "C1" });
 
 
 //------------------------------------------------
@@ -116,12 +162,13 @@ var lucroOuPrejuizo = entradas + gastos;
     ]);
     XLSX.utils.book_append_sheet(arquivo, planilhaTotal, "Total"); */
 
- var colunasTotais = [['Gastos planejados','Gastos Reais','Entradas','Lucro/Prejuizo']]
+ var colunasTotais = [['Gastos Totais','Entradas','Lucro/Prejuizo','Gastos planejados']]
 XLSX.utils.sheet_add_aoa(Total, colunasTotais, { origin: "A1" }, );
-XLSX.utils.sheet_add_aoa(Total, [[Math.floor(GastosPlanejados)]], { origin: "A2" });
-XLSX.utils.sheet_add_aoa(Total, [[Math.floor(gastos)]], { origin: "B2" });
-XLSX.utils.sheet_add_aoa(Total, [[Math.floor(entradas)]], { origin: "C2" });
-XLSX.utils.sheet_add_aoa(Total, [[Math.floor(lucroOuPrejuizo)]], { origin: "D2" });
+
+XLSX.utils.sheet_add_aoa(Total, [[`R$ ${Math.floor(gastos)}`]], { origin: "A2" });
+XLSX.utils.sheet_add_aoa(Total, [[`R$ ${Math.floor(entradas)}`]], { origin: "B2" });
+XLSX.utils.sheet_add_aoa(Total, [[`R$ ${Math.floor(lucroOuPrejuizo)}`]], { origin: "C2" });
+XLSX.utils.sheet_add_aoa(Total, [[`R$ ${Math.floor(GastosPlanejados)}`]], { origin: "D2" });
 
 XLSX.writeFile(arquivo, "./ArquivosFeitos/arquivoFeito.xlsx"); 
 
