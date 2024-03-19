@@ -1,12 +1,12 @@
-const fs = require("fs");
+/* const fs = require("fs");
 const XLSX = require("xlsx");
 var csv = require('jquery-csv');
-/* 
-const arquivo = XLSX.readFile("Pasta1.xlsx")
+
+//const arquivo = XLSX.readFile("Pasta1.xlsx")
 const worksheet = arquivo.Sheets['Planilha1']
 
 const arr = XLSX.utils.sheet_to_json(worksheet)
-console.log(arr); */
+console.log(arr); 
 
 
   const arquivo = XLSX.readFile("ExtratoBancário.xlsx");
@@ -41,4 +41,10 @@ console.log(arr); */
   XLSX.utils.book_append_sheet(arquivo, planilhaTotal, "Total");
   XLSX.writeFile(arquivo, "ExtratoBancárioNovo.xlsx");
   console.log(totalPayments);
-  console.log(totalBankCharge);
+  console.log(totalBankCharge); */
+  const Papa = require('papaparse');
+
+
+const test = 'Coluna111,Edu,HELO';
+
+console.log(Papa.parse(test));
