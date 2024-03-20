@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Input from './Input';
 import '../public/style.css';
 import Grafico from './grafico';
-
+import Home from './Home';
+import Menu from "./Menu";
+import "./app.css";
 
 
 const App = () => {
-  const [mandarArquivo, setMandarArquivo] = useState(false);
-
-  // Função para lidar com o clique no botão
-  function handleClick() {
-    setMandarArquivo(true);
-    if (mandarArquivo === true) {
-      console.log("é true");
-    }
-  };
 
   return (
-    <div>
-  
-      <Input />
-     <Grafico/>
-    </div>
+    
+    <BrowserRouter >
+    <Menu/>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="input/" element={<Input />} />
+      <Route path="grafico/" element={<Grafico />}/>
+      
+    
+     {/*  <Route path="*" element={<Pagina404 />}/> */}
+      
+    </Routes>
+      
+    </BrowserRouter>
+      
+    
   );
 };
 

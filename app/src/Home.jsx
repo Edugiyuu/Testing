@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import primeiraPlanilha from './Input'
-import arquivoCsv from './Input'
 
-const BaixarArquivo = () => {
+
+const Home = () => {
 
 
   return (
@@ -12,4 +11,4 @@ const BaixarArquivo = () => {
   );
 };
 
-export default BaixarArquivo;
+export default Home;
