@@ -1,7 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Papa from "papaparse";
-import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar} from "recharts";
+import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar, ResponsiveContainer, ReferenceLine} from "recharts";
 
 
  const Grafico = () => {
@@ -14,7 +14,7 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         { ano: "2022", primeiroNumero: 95, segundoNumero: 44},
       ]; */
       const [parsedData, setParsedData] = useState([]);
-
+      
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
   //State to store the values
   const [values, setValues] = useState([]);
@@ -59,13 +59,31 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         {  primeiroNumero: 51, segundoNumero: 31},
         {  primeiroNumero: 95, segundoNumero: 44},
       ];
-      for (let i = 0; i < parsedData.length; i++) {
 
-        if (parsedData[i].Valor < 0) {
-       
+      const [gasto, setGasto] = useState(0);
+      const [valorMenor, setValorMenor] = useState([]);
+      const [arrayDeObjetosGastos, setArrayDeObjetos] = useState([]);
+      
+      useEffect(() => {
+        const numeroMenor = [];
+        const totalDeGastos = [];
+      
+        for (let i = 0; i < parsedData.length; i++) {
+          if (parsedData[i].Valor < 0) {
+            numeroMenor.push(parsedData[i].Valor);
+          }
         }
-        
-      }
+      
+        setGasto(numeroMenor); 
+      
+        const arrayObjetos = numeroMenor.map(gasto => ({ gasto: parseFloat(gasto) }));
+        setArrayDeObjetos(arrayObjetos);
+      
+      }, [parsedData]);
+
+      console.log(arrayDeObjetosGastos);
+      
+
   return (
     <div>
       <input
@@ -77,7 +95,7 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
     <LineChart width={1200} height={500} data={parsedData} margin={{ top: 25, right: 20, bottom: 5, left: 0 }}>
     <Line type="monotone" dataKey="ano" stroke="#2196F3" strokeWidth={3} />
     <Line width={500} type="monotone"dataKey='Valor'stroke="#F44236"strokeWidth={3} />
-    <Line type="monotone" dataKey="segundoNumero" stroke="#FFCA29" strokeWidth={3} />
+    <Line type="monotone" dataKey="test" stroke="#FFCA29" strokeWidth={3} />
     <CartesianGrid stroke="#ccc" />
     <XAxis dataKey="name" />
     <YAxis />
@@ -85,14 +103,47 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
     <Legend />
   </LineChart>
   {/*--------------------------------------------- */}
-  <BarChart width={1200} height={500} data={parsedData} margin={{ top: 5, right: 5, bottom: 5, left: 0 }}>
+  <BarChart width={1200} height={500} data={arrayDeObjetosGastos} margin={{ top: 5, right: 5, bottom: 5, left: 0 }}>
     <XAxis dataKey="name"/>
     <YAxis />
     <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
     <Legend />
-    <CartesianGrid stroke="#ccc" />
-    <Bar dataKey="Valor" fill="#eb4022" barSize={30} />
+    
+    <Bar dataKey="gasto" fill="#eb4022" barSize={30} />
   </BarChart>
+
+  
+  <BarChart width={600} height={300} data={arrayDeObjetosGastos}>
+    <XAxis dataKey='gasto' tick="{renderCustomAxisTick}" />
+    <XAxis dataKey="name"/>
+    <Tooltip />
+    <Legend />
+    <Bar dataKey="uv" barSize={30} fill="#8884d8"
+      label='{renderCustomBarLabel}'/>
+  </BarChart>
+
+  <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          width={500}
+          height={300}
+          data={arrayDeObjetosGastos}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="gasto" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <ReferenceLine y={0} stroke="#000" />
+          <Bar dataKey="pv" fill="#8884d8" />
+          <Bar dataKey="uv" fill="#82ca9d" />
+        </BarChart>
+      </ResponsiveContainer>
   </div>
   );
 };
