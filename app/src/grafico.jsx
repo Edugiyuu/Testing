@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Papa from "papaparse";
-import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar, ResponsiveContainer, ReferenceLine} from "recharts";
+import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area} from "recharts";
 
 
  const Grafico = () => {
@@ -18,7 +18,7 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
   //State to store the values
   const [values, setValues] = useState([]);
-
+ 
   const handleFileChange = (event) => {
     console.log(event.target.files[0])
     /* const primeiraPlanilha = event.target.files[0];
@@ -60,30 +60,46 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         {  primeiroNumero: 95, segundoNumero: 44},
       ];
 
-      const [gasto, setGasto] = useState(0);
-      const [valorMenor, setValorMenor] = useState([]);
-      const [arrayDeObjetosGastos, setArrayDeObjetos] = useState([]);
       
+      const [valorMenor, setValorMenor] = useState([]);
+      const [arrayDeObjetosGastos, setArrayDeObjetosGastos] = useState([]);
+      const [totalDeGastos, setTotalDeGastos] = useState(0);
+      const [totalDeLucros, setTotalDeLucros] = useState(0);
+      const [totalFinal, setTotalFinal] = useState(0);
       useEffect(() => {
         const numeroMenor = [];
-        const totalDeGastos = [];
-      
+        let totalMenor = 0;
+        const numeroMaior = [];
+        let totalMaior = 0;
+    
         for (let i = 0; i < parsedData.length; i++) {
           if (parsedData[i].Valor < 0) {
+            totalMenor += +parsedData[i].Valor;
             numeroMenor.push(parsedData[i].Valor);
+          }else{
+            totalMaior += +parsedData[i].Valor;
+            numeroMaior.push(parsedData[i].Valor);
           }
         }
-      
-        setGasto(numeroMenor); 
-      
-        const arrayObjetos = numeroMenor.map(gasto => ({ gasto: parseFloat(gasto) }));
-        setArrayDeObjetos(arrayObjetos);
+        setTotalDeGastos(totalMenor);
+       setTotalDeLucros(totalMaior)
+       setTotalFinal(totalDeGastos + totalDeLucros)
+
+        const arrayDeObjetosNegativos = numeroMenor.map(gasto => ({ gasto: parseFloat(gasto) }));
+        setArrayDeObjetosGastos(arrayDeObjetosNegativos);
       
       }, [parsedData]);
 
-      console.log(arrayDeObjetosGastos);
-      
+      console.log(totalFinal);
+      console.log(totalDeGastos);
 
+      const [valorColocado, setValorColocado] = useState(0);
+
+      const valorEstimado = (event) => {
+        const valorDigitado = event.target.value;
+        setValorColocado(valorDigitado)
+        console.log(valorColocado);
+      }
   return (
     <div>
       <input
@@ -92,7 +108,13 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         onChange={handleFileChange}
         accept=".csv"
       />
-    <LineChart width={1200} height={500} data={parsedData} margin={{ top: 25, right: 20, bottom: 5, left: 0 }}>
+      <input
+        type='number'
+        name="valorEstimado"
+        onChange={valorEstimado}
+        placeholder='Coloque um valor que você predendia gastar..'
+      />
+    {/* <LineChart width={1100} height={500} data={parsedData} margin={{top:30,right: 9, bottom: 5, left: 100 }}>
     <Line type="monotone" dataKey="ano" stroke="#2196F3" strokeWidth={3} />
     <Line width={500} type="monotone"dataKey='Valor'stroke="#F44236"strokeWidth={3} />
     <Line type="monotone" dataKey="test" stroke="#FFCA29" strokeWidth={3} />
@@ -101,50 +123,39 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
     <YAxis />
     <Tooltip />
     <Legend />
-  </LineChart>
+  </LineChart> */}
   {/*--------------------------------------------- */}
-  <BarChart width={1200} height={500} data={arrayDeObjetosGastos} margin={{ top: 5, right: 5, bottom: 5, left: 0 }}>
+  
+ {/*  <BarChart width={1100} height={500} data={arrayDeObjetosGastos} margin={{right: 9, bottom: 5, left: 100 }}>
     <XAxis dataKey="name"/>
     <YAxis />
-    <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
+    <Tooltip  />
     <Legend />
     
     <Bar dataKey="gasto" fill="#eb4022" barSize={30} />
-  </BarChart>
+  </BarChart> */}
 
   
-  <BarChart width={600} height={300} data={arrayDeObjetosGastos}>
-    <XAxis dataKey='gasto' tick="{renderCustomAxisTick}" />
-    <XAxis dataKey="name"/>
-    <Tooltip />
-    <Legend />
-    <Bar dataKey="uv" barSize={30} fill="#8884d8"
-      label='{renderCustomBarLabel}'/>
-  </BarChart>
-
-  <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          width={500}
-          height={300}
-          data={arrayDeObjetosGastos}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="gasto" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <ReferenceLine y={0} stroke="#000" />
-          <Bar dataKey="pv" fill="#8884d8" />
-          <Bar dataKey="uv" fill="#82ca9d" />
-        </BarChart>
-      </ResponsiveContainer>
-  </div>
+  <BarChart width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}} data={[{ 
+    name: "Total de Gastos", total: Math.floor(totalDeGastos),
+    name: "Total de Lucro",total2: Math.floor(totalDeLucros),
+    name: "Total Es",total3: valorColocado,
+    name: "Total Final",total4: Math.floor(totalFinal),
+    }]}>
+      <Legend />
+        <XAxis dataKey='name2' />
+        <YAxis />
+        <Tooltip />
+        <CartesianGrid stroke="#ccc" />
+        <Bar name='Total De Gastos'dataKey="total" barSize={30} fill="#ca0404" />
+        <Bar name='Total De Lucros'dataKey="total2" barSize={30} fill="#43ca04" />
+        <Bar name='Total Pretendido'dataKey="total3" barSize={30} fill="#570d9c" />
+        <Bar name='Total Final'dataKey="total4" barSize={30} fill="#f3ef20" />
+      </BarChart>
+     
+      
+     
+    </div>
   );
 };
 
