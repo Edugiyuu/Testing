@@ -52,11 +52,13 @@ const VerArquivo = () => {
 
   const [parsedData, setParsedData] = useState([]);
 
-  
+  const [valoresJuntosArray, setValoresJuntosArray] = useState([]);
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
+  const [colunasDaTabelaExtras, setColunasDaTabelaExtras] = useState(['Tipo','Nomes','Dados Do Banco','Banco']);
 
   //State to store the values
   const [values, setValues] = useState([]);
+  const [valuesExtras, setValuesExtras] = useState([]);
 
   const handleFileChange = (event) => {
     /* const primeiraPlanilha = event.target.files[0];
@@ -68,11 +70,24 @@ const VerArquivo = () => {
       complete: function (results) {
         const rowsArray = [];
         const valuesArray = [];
+        const valuesExtrasArray = [];
 
         // Iterating data to get column name and their values
         results.data.map((d) => {
-          rowsArray.push(Object.keys(d));
-          valuesArray.push(Object.values(d));
+        
+          const todosOsValores = Object.values(d);
+          todosOsValores.pop()
+          valuesArray.push(todosOsValores)
+          //valuesArray.push(Object.values(d));
+
+          const todasAsColunas = Object.keys(d);
+          todasAsColunas.pop()
+          rowsArray.push(todasAsColunas)
+          //rowsArray.push(Object.keys(d));
+
+
+          valuesExtrasArray.push(Object.values(d['Descrição'].split(' - ')));
+          console.log(todosOsValores);
         });
 
         // Parsed Data Response in array format
@@ -82,7 +97,13 @@ const VerArquivo = () => {
         setColunasDaTabela(rowsArray[0]);
 
         // Filtered Values
+        setValuesExtras(valuesExtrasArray)
         setValues(valuesArray);
+
+        const valoresJuntosArray = valuesArray.map((value, index) => {
+          return value.concat(valuesExtrasArray[index]);
+      });
+      setValoresJuntosArray(valoresJuntosArray);
       },
     });
   };
@@ -104,13 +125,16 @@ const VerArquivo = () => {
           {/* Colunas */}
           <tr>
             {colunasDaTabela.map((colunas, index) => {
-              return <th key={index}>{colunas}</th>;
+              return <th key={index}>{colunas}</th> 
+            })}
+            {colunasDaTabelaExtras.map((colunas, index) => {
+              return <th key={index}>{colunas}</th> 
             })}
           </tr>
         </thead>
         <tbody>
           {/* Valor da Coluna */}
-          {values.map((valor, index) => {
+          {valoresJuntosArray.map((valor, index) => {
             return (
               <tr key={index}>
                 {valor.map((valor, i) => {
@@ -119,6 +143,7 @@ const VerArquivo = () => {
               </tr>
             );
           })}
+         
         </tbody>
       </table>
     </div>
