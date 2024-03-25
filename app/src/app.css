@@ -58,7 +58,7 @@ input,
 textarea {
   display: block;
   border: 1px solid #ccc;
-  width: 100%;
+  
   padding: 0.8rem;
   border-radius: var(--radius);
   background: #eee;
@@ -102,4 +102,53 @@ button:disabled {
 hr {
   border: 2px solid black;
   margin: 2rem auto;
+}
+.primeiroGrafico{
+  margin-top: 50px;
+}
+.Menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-evenly;
+  font-weight: bold;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 9px;
+  padding: 15px;
+  margin-left: 100px;
+  margin-right: 100px;
+  box-shadow: 5px 5px lightblue;
+
+    /* background-repeat: no-repeat; */
+    background-position: center;
+    background-repeat: repeat-x;
+    background-color: rgb(80, 80, 80);
+}
+input{
+  
+  margin: 25px;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+
+  
+  border-radius: 9px;
+  
+  box-shadow: 5px 5px lightblue;
+ 
+  background-color: rgb(255, 255, 255);
+}
+.NavLink{
+  color: rgb(255, 255, 255); 
+   
+}
+.Menu :hover{
+  animation-name: fonteAnim;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  text-decoration: underline;
+}
+
+tr{
+  color: green
 }

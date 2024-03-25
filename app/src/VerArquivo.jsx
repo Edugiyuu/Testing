@@ -47,7 +47,7 @@ export default Input;
 
  */
 
-const Input = () => {
+const VerArquivo = () => {
   
 
   const [parsedData, setParsedData] = useState([]);
@@ -125,5 +125,5 @@ const Input = () => {
   );
 }
 
-export default Input;
+export default VerArquivo;
 

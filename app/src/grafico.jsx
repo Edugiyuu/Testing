@@ -1,18 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Papa from "papaparse";
-import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area} from "recharts";
+import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area,PieChart,Pie, RadialBarChart,RadialBar} from "recharts";
 
 
  const Grafico = () => {
-    /* const data = [
-        { ano: "2017", primeiroNumero: 32, segundoNumero: 37, },
-        { ano: "2018", primeiroNumero: 42, segundoNumero: 42},
-        { ano: "2019", primeiroNumero: 51, segundoNumero: 41},
-        { ano: "2020", primeiroNumero: 60, segundoNumero: 37},
-        { ano: "2021", primeiroNumero: 51, segundoNumero: 31},
-        { ano: "2022", primeiroNumero: 95, segundoNumero: 44},
-      ]; */
+    
       const [parsedData, setParsedData] = useState([]);
       
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
@@ -30,7 +23,6 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
       complete: function (results) {
         const rowsArray = [];
         const valuesArray = [];
-        console.log(results.data)
         const dinheiro = []
 
         // Iterating data to get column name and their values
@@ -61,7 +53,6 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
       ];
 
       
-      const [valorMenor, setValorMenor] = useState([]);
       const [arrayDeObjetosGastos, setArrayDeObjetosGastos] = useState([]);
       const [totalDeGastos, setTotalDeGastos] = useState(0);
       const [totalDeLucros, setTotalDeLucros] = useState(0);
@@ -83,23 +74,31 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         }
         setTotalDeGastos(totalMenor);
        setTotalDeLucros(totalMaior)
-       setTotalFinal(totalDeGastos + totalDeLucros)
+       
 
         const arrayDeObjetosNegativos = numeroMenor.map(gasto => ({ gasto: parseFloat(gasto) }));
         setArrayDeObjetosGastos(arrayDeObjetosNegativos);
       
       }, [parsedData]);
+      useEffect(() =>{
+        setTotalFinal(totalDeGastos + totalDeLucros)
+      },[totalDeGastos||totalDeLucros])
 
-      console.log(totalFinal);
-      console.log(totalDeGastos);
+
 
       const [valorColocado, setValorColocado] = useState(0);
 
       const valorEstimado = (event) => {
         const valorDigitado = event.target.value;
         setValorColocado(valorDigitado)
-        console.log(valorColocado);
       }
+      const dataInfo =[{ 
+        name: "Total de Gastos", total: Math.floor(totalDeGastos),
+        name: "Total de Lucro",total2: Math.floor(totalDeLucros),
+        name: "Total Es",total3: valorColocado,
+        name: "Total Final",total4: Math.floor(totalFinal),
+        }]
+        
   return (
     <div>
       <input
@@ -126,35 +125,33 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
   </LineChart> */}
   {/*--------------------------------------------- */}
   
- {/*  <BarChart width={1100} height={500} data={arrayDeObjetosGastos} margin={{right: 9, bottom: 5, left: 100 }}>
-    <XAxis dataKey="name"/>
-    <YAxis />
-    <Tooltip  />
-    <Legend />
-    
-    <Bar dataKey="gasto" fill="#eb4022" barSize={30} />
-  </BarChart> */}
-
-  
-  <BarChart width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}} data={[{ 
-    name: "Total de Gastos", total: Math.floor(totalDeGastos),
-    name: "Total de Lucro",total2: Math.floor(totalDeLucros),
-    name: "Total Es",total3: valorColocado,
-    name: "Total Final",total4: Math.floor(totalFinal),
-    }]}>
-      <Legend />
+  <BarChart className='primeiroGrafico'width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}} data={dataInfo} barGap={15}>
+      <Legend stroke='#add8e6'/>
         <XAxis dataKey='name2' />
-        <YAxis />
+        <YAxis stroke="#000000"/>
         <Tooltip />
-        <CartesianGrid stroke="#ccc" />
-        <Bar name='Total De Gastos'dataKey="total" barSize={30} fill="#ca0404" />
-        <Bar name='Total De Lucros'dataKey="total2" barSize={30} fill="#43ca04" />
-        <Bar name='Total Pretendido'dataKey="total3" barSize={30} fill="#570d9c" />
-        <Bar name='Total Final'dataKey="total4" barSize={30} fill="#f3ef20" />
+        <CartesianGrid stroke="#add8e6" />
+        <Bar name='Total De Gastos'dataKey="total" barSize={35} fill="#ca0404" stroke="#000000" />
+        <Bar name='Total De Lucros'dataKey="total2" barSize={35} fill="#43ca04" stroke="#000000" />
+        <Bar name='Total Pretendido'dataKey="total3" barSize={35} fill="#570d9c" stroke="#000000" />
+        <Bar name='Total Final'dataKey="total4" barSize={35} fill="#d8d51f" stroke="#000000" />
       </BarChart>
      
-      
-     
+      {/* <PieChart width={400} height={400}>
+          <Pie
+            data={dataInfo}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+           
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="segundoNumero"
+          >
+           
+          </Pie>
+        </PieChart> */}
+
     </div>
   );
 };
