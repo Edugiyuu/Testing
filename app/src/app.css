@@ -14,10 +14,10 @@ html {
   --color-dark: #018;
   --radius: 0.2rem;
 }
-
+/* 
 body {
   margin: 1.5rem;
-}
+} */
 
 body,
 input,
@@ -110,24 +110,23 @@ hr {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content:space-evenly;
+  justify-content:flex-start;
+  gap: 16%;
   font-weight: bold;
+  
   border: 2px solid rgb(0, 0, 0);
-  border-radius: 9px;
-  padding: 15px;
-  margin-left: 100px;
-  margin-right: 100px;
+  /* border-radius: 9px; */
+  padding: 10px;
   box-shadow: 5px 5px lightblue;
 
-    background-position: center;
-    background-repeat: repeat-x;
-    background-color: rgb(56, 56, 56);
+    background-color: rgb(255, 255, 255);
 }
 input{
   
   margin: 25px;
   margin-left: 25%;
   margin-right: 25%;
+  margin-top: 3%;
   width: 50%;
 
   
@@ -138,17 +137,70 @@ input{
   background-color: rgb(255, 255, 255);
 }
 .NavLink{
-  color: rgb(255, 255, 255); 
+  color: rgb(0, 0, 0); 
    
 }
-.Menu :hover{
-  animation-name: fonteAnim;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-  text-decoration: underline;
-}
 
-tr{
+.valores{
   color: rgb(0, 0, 0);
   font-size: smaller;
+  padding: 25px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+}
+.logo{
+  
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+.Menu img{
+  
+  
+  font-weight: bold;
+  margin-left: 20px;
+ 
+  border: 2px solid rgb(0, 0, 0);
+  box-shadow: 5px 5px rgb(208, 151, 255);
+
+  
+}
+
+.download{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:flex-start;
+  gap: 16%;
+  font-weight: bold;
+  
+  
+  /* border-radius: 9px; */
+  padding: 10px;
+  box-shadow: 5px 5px lightblue;
+
+    background-color: rgb(255, 255, 255);
+}
+
+.download{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  margin-top: 50px;
+  font-weight: bold;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 10px;
+  box-shadow: 5px 5px lightblue;
+  background-color: rgb(255, 255, 255);
+}
+
+.download .clickDownload{
+  
+  
+  font-weight: bold;
+  border: 2px solid rgb(0, 0, 0);
+  padding: 40px;
+  box-shadow: 5px 5px lightblue;
+  background-color: rgb(255, 255, 255);
 }

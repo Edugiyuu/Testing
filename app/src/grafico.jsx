@@ -131,10 +131,10 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         <YAxis stroke="#000000"/>
         <Tooltip />
         <CartesianGrid stroke="#add8e6" />
-        <Bar name='Total De Gastos'dataKey="total" barSize={35} fill="#ca0404" stroke="#000000" />
-        <Bar name='Total De Lucros'dataKey="total2" barSize={35} fill="#43ca04" stroke="#000000" />
-        <Bar name='Total Pretendido'dataKey="total3" barSize={35} fill="#570d9c" stroke="#000000" />
-        <Bar name='Total Final'dataKey="total4" barSize={35} fill="#d8d51f" stroke="#000000" />
+        <Bar name='Total De Gastos'dataKey="total" barSize={35} fill="#ca0404" baseProfile={9} />
+        <Bar name='Total De Lucros'dataKey="total2" barSize={35} fill="#43ca04" />
+        <Bar name='Total Pretendido'dataKey="total3" barSize={35} fill="#570d9c"  />
+        <Bar name='Total Final'dataKey="total4" barSize={35} fill="#d8d51f" />
       </BarChart>
      
       {/* <PieChart width={400} height={400}>

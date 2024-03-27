@@ -3,49 +3,6 @@ import React, { useState } from 'react';
 import Papa from "papaparse";
 import XLSX from 'xlsx'
 import { LineChart, Line } from 'recharts';
-/* const Input = () => {
-  const [arquivoCsv, setArquivoCsv] = useState('');
-  const test = 'Coluna111,Edu,HELO'
-
- var csv = Papa.unparse({
-	"fields": ["Column 1", "Column 2"],
-	"data": [
-		["foo", "bar"],
-		["abc", "def"]
-	]
-}); 
-
-  const handleFileChange = (event) => {
-    const primeiraPlanilha = event.target.files[0];
-    
-      console.log(Papa.parse(test)); 
-      Papa.parse(primeiraPlanilha, {
-        complete: (result) => {
-          setArquivoCsv(result.data);
-        }
-        
-      });
-      
-
-  };
-
-  return (
-    <div>
-      <input type="file" accept='.csv' onChange={handleFileChange} />
-      <div>
-        {arquivoCsv && (
-
-          <p>{arquivoCsv}</p>
-          
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default Input;
-
- */
 
 const VerArquivo = () => {
   
@@ -110,6 +67,7 @@ const VerArquivo = () => {
 
   return (
     <div>
+     
       {/* File Uploader */}
       <input
         type="file"
@@ -138,12 +96,12 @@ const VerArquivo = () => {
             return (
               <tr key={index}>
                 {valor.map((valor, i) => {
-                  return <td key={i}>{valor}</td>;
+                  return <td className='valores'key={i}>{valor}</td>;
                 })}
               </tr>
             );
           })}
-         
+
         </tbody>
       </table>
     </div>
