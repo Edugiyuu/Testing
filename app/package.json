@@ -10,13 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nivo/bar": "^0.85.1",
+    "@nivo/pie": "^0.85.1",
     "@react-pdf/renderer": "^3.4.1",
+    "chart.js": "^4.4.2",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-file-reader": "^1.1.4",
     "react-router-dom": "^6.22.3",
     "recharts": "^2.12.3",
+    "victory": "^37.0.1",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz"
   },
   "devDependencies": {

@@ -43,14 +43,7 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
       },
     });
   };
-    const data = [
-        { primeiroNumero: 32, segundoNumero: 37, },
-        { primeiroNumero: 42, segundoNumero: 42},
-        { primeiroNumero: 51, segundoNumero: 41},
-        { primeiroNumero: 60, segundoNumero: 37},
-        {  primeiroNumero: 51, segundoNumero: 31},
-        {  primeiroNumero: 95, segundoNumero: 44},
-      ];
+ 
 
       
       const [arrayDeObjetosGastos, setArrayDeObjetosGastos] = useState([]);
@@ -92,13 +85,23 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         const valorDigitado = event.target.value;
         setValorColocado(valorDigitado)
       }
+      
       const dataInfo =[{ 
         name: "Total de Gastos", total: Math.floor(totalDeGastos),
         name: "Total de Lucro",total2: Math.floor(totalDeLucros),
         name: "Total Es",total3: valorColocado,
         name: "Total Final",total4: Math.floor(totalFinal),
         }]
-        
+        const dataInfoJunto =[
+          { name: "Total de Gastos", value: Math.floor(totalDeGastos)},
+          { name: "Total de Lucro",value: Math.floor(totalDeLucros)}
+        ];
+        const data = [
+          { name: 'Total Lucros', value: totalDeLucros, fill: '#FF5733' },
+          { name: 'Total Esperado', value: valorColocado, fill: '#33FF57' },
+          { name: 'Outro Valor', value: totalDeLucros, fill: '#5733FF' },
+          { name: 'Total Final', value: Math.floor(totalFinal), fill: '#d2fd12' }
+        ];
   return (
     <div>
       <input
@@ -136,7 +139,27 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         <Bar name='Total Pretendido'dataKey="total3" barSize={35} fill="#570d9c"  />
         <Bar name='Total Final'dataKey="total4" barSize={35} fill="#d8d51f" />
       </BarChart>
-     
+
+
+      <PieChart width={700} height={700}>
+  <Pie
+    dataKey="value"
+    data={data}
+    // Ajuste para centralizar verticalmente
+    innerRadius={40}
+    outerRadius={80}
+    
+    label // Ativando a exibição dos valores dentro do gráfico
+  />
+  
+  <Legend />
+  <Tooltip />
+</PieChart>
+
+
+
+ 
+
       {/* <PieChart width={400} height={400}>
           <Pie
             data={dataInfo}

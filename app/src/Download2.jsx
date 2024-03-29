@@ -10,7 +10,7 @@ import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-
 export const rowsArray = [];
 export const valuesArray = [];
 
-export function Download() {
+export function Download2() {
   /* const [valuesArrays, setValuesArrays] = useState([]); */
   const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -51,12 +51,10 @@ export function Download() {
     <Document>
       <Page size="A4">
         <View>
-          <Text>Valores</Text>
+          <Text>Section #1</Text>
         </View>
         <View>
-        {rowsArray[0].map((colunas) => {
-              return <Text>{colunas}</Text> 
-            })}
+          <Text>Section #2</Text>
         </View>
         <View style={styles.section}>
           {/* <Text>{valuesArray}</Text> */}
@@ -93,4 +91,4 @@ export function Download() {
   );
 }
 
-export default Download;
+export default Download2;
