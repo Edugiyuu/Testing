@@ -22,7 +22,8 @@ body {
 body,
 input,
 textarea,
-button {
+button,
+p {
   font-size: var(--font-size);
   font-family: var(--font);
 }
@@ -103,9 +104,10 @@ hr {
   border: 2px solid black;
   margin: 2rem auto;
 }
-.primeiroGrafico{
+.primeiroGrafico, .segundoGrafico{
   margin-top: 50px;
 }
+
 .Menu{
   display: flex;
   flex-direction: row;
@@ -128,8 +130,6 @@ input{
   margin-right: 25%;
   margin-top: 3%;
   width: 50%;
-
-  
   border-radius: 9px;
   
   box-shadow: 5px 5px lightblue;
@@ -203,4 +203,29 @@ input{
   padding: 40px;
   box-shadow: 5px 5px lightblue;
   background-color: rgb(255, 255, 255);
+}
+button{
+  font-size: larger;
+  margin: 25px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 3%;
+  width: 50%;
+  border-radius: 9px;
+  
+  box-shadow: 5px 5px lightblue;
+ 
+}
+
+.Mês{
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  font-size: larger;
+  margin: 25px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 3%;
+  width: 50%;
+  border-radius: 9px;
 }

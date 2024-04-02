@@ -39,30 +39,53 @@ export function Download() {
       flexGrow: 1,
       fontSize: 10,
     },
-    valores:{
-      margin: 20,
-     
-      alignItems:'center',
+    valoresView:{
+      display:'flex',
+      flexDirection:'row',
+      fontSize: '9px',
       justifyContent:'flex-start',
       gap:'16px'
+    },
+    valores: {
+      display: 'flex',
+      flexDirection: 'row',
+      fontSize: '7px',
+      justifyContent: 'space-between',
+      gap: '26px',
+      border: '2px solid rgb(0, 0, 0)',
+      borderRadius: '5px',
+      padding:'10px'
+    },
+    
+    colunaView:{
+      display:'flex',
+      flexDirection:'row',
+     
+      gap:'70px'
+    },
+    coluna:{
+      
+      fontSize:'12px',
+      marginLeft:'10px',
+      marginTop:'10px'
     },
   });
   const MyDoc = () => (
     <Document>
-      <Page size="A4">
+      <Page size="A3">
         <View>
           <Text>Valores</Text>
         </View>
-        <View>
+        <View style={styles.colunaView} >
         {rowsArray[0].map((colunas) => {
-              return <Text>{colunas}</Text> 
+              return <Text style={styles.coluna}>{colunas}</Text> 
             })}
         </View>
         <View style={styles.section}>
           {/* <Text>{valuesArray}</Text> */}
           {valuesArray.map((valor, index) => {
             return (
-              <View key={index}>
+              <View style={styles.valoresView} key={index}>
                 {valor.map((valor, i) => {
                   return <Text style={styles.valores} key={i}>{valor}</Text>;
                 })}

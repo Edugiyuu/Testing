@@ -1,17 +1,35 @@
 
 import React, { useState, useEffect } from 'react';
 import Papa from "papaparse";
+import generatePDF, { Margin } from 'react-to-pdf';
+import VerArquivoPDF from './VerArquivoPDF';
+import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer,  } from '@react-pdf/renderer';
+
 import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area,PieChart,Pie, RadialBarChart,RadialBar} from "recharts";
+
+const personalizacao = {
+  // Baixar/Salvar = save / Abrir no navegador = open
+  method: 'open',
+  page: {
+    // Definir a margem: SMALL ou MEDIUM 
+    margin: Margin.MEDIUM,
+    // Formato da página: A4 ou letter
+    format: 'A4',
+    // Orientação do arquivo: portrait ou landscape
+    orientation: 'portrait',
+  },
+}
 
 
  const Grafico = () => {
     
-      const [parsedData, setParsedData] = useState([]);
+    const [parsedData, setParsedData] = useState([]);
       
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
   //State to store the values
   const [values, setValues] = useState([]);
- 
+  const [buttonLoaded, setButtonLoaded] = useState(false);
+
   const handleFileChange = (event) => {
     console.log(event.target.files[0])
     /* const primeiraPlanilha = event.target.files[0];
@@ -31,7 +49,7 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
           valuesArray.push(Object.values(d));
           
         });
-
+        setButtonLoaded(true);
         // Parsed Data Response in array format
         setParsedData(results.data);
 
@@ -45,34 +63,65 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
   };
  
 
-      
+      console.log(parsedData);
       const [arrayDeObjetosGastos, setArrayDeObjetosGastos] = useState([]);
+      const [arrayDeTodosOsNumeros, setArrayDeTodosOsNumeros] = useState([]);
       const [totalDeGastos, setTotalDeGastos] = useState(0);
       const [totalDeLucros, setTotalDeLucros] = useState(0);
       const [totalFinal, setTotalFinal] = useState(0);
+      const [mesDeGastos, setMesDeGastos] = useState(0);
+      const [mesDeLucros, setMesDeLucros] = useState(0);
       useEffect(() => {
         const numeroMenor = [];
-        let totalMenor = 0;
-        const numeroMaior = [];
-        let totalMaior = 0;
+    let totalMenor = 0;
+    const numeroMaior = [];
+    const todosOsNumeros = []
+    let totalMaior = 0;
+    var mesComMaisLucro = '';
+    var maiorValor = 0;
+    var mesComMaisGasto = '';
+    var menorValor = 0;
     
-        for (let i = 0; i < parsedData.length; i++) {
-          if (parsedData[i].Valor < 0) {
+    for (let i = 0; i < parsedData.length; i++) {
+      
+        if (parsedData[i].Valor < 0) {
             totalMenor += +parsedData[i].Valor;
             numeroMenor.push(parsedData[i].Valor);
-          }else{
+            todosOsNumeros.push(parsedData[i].Valor);
+            
+            if (parsedData[i].Valor < menorValor) {
+              menorValor = Number(parsedData[i].Valor);
+              mesComMaisGasto = parsedData[i].Data;
+            }
+          
+        } else {
             totalMaior += +parsedData[i].Valor;
             numeroMaior.push(parsedData[i].Valor);
+            todosOsNumeros.push(parsedData[i].Valor);
+            
+            
+            if (parsedData[i].Valor > maiorValor) {
+              maiorValor = Number(parsedData[i].Valor);
+              mesComMaisLucro = parsedData[i].Data; 
           }
         }
-        setTotalDeGastos(totalMenor);
+        
+    }
+    setMesDeGastos(mesComMaisGasto)
+    setMesDeLucros(mesComMaisLucro)
+  
+      setTotalDeGastos(totalMenor);
        setTotalDeLucros(totalMaior)
        
+       
+       const arrayDeNumerosDeObjetosTotais = todosOsNumeros.map(total => ({ total: parseFloat(total) }));
+        setArrayDeTodosOsNumeros(arrayDeNumerosDeObjetosTotais);
 
         const arrayDeObjetosNegativos = numeroMenor.map(gasto => ({ gasto: parseFloat(gasto) }));
         setArrayDeObjetosGastos(arrayDeObjetosNegativos);
       
       }, [parsedData]);
+      
       useEffect(() =>{
         setTotalFinal(totalDeGastos + totalDeLucros)
       },[totalDeGastos||totalDeLucros])
@@ -86,6 +135,12 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         setValorColocado(valorDigitado)
       }
       
+      const recuperarConteudoParaPDF = () => {
+        
+       const conteudoElement = document.getElementById('conteudo');
+       
+        return conteudoElement
+      };
       const dataInfo =[{ 
         name: "Total de Gastos", total: Math.floor(totalDeGastos),
         name: "Total de Lucro",total2: Math.floor(totalDeLucros),
@@ -102,6 +157,27 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
           { name: 'Outro Valor', value: totalDeLucros, fill: '#5733FF' },
           { name: 'Total Final', value: Math.floor(totalFinal), fill: '#d2fd12' }
         ];
+        const data2 = [
+          { name: 'Total Lucros', value2: totalDeGastos, fill: '#FF5733' },
+          
+        ];
+        const gradientOffset = () => {
+          const dataMax = Math.max(...arrayDeTodosOsNumeros.map((i) => i.total));
+          const dataMin = Math.min(...arrayDeTodosOsNumeros.map((i) => i.total));
+        
+          if (dataMax <= 0) {
+            return 0;
+          }
+          if (dataMin >= 0) {
+            return 1;
+          }
+        
+          return dataMax / (dataMax - dataMin);
+        };
+        
+        const off = gradientOffset();
+       
+        
   return (
     <div>
       <input
@@ -116,6 +192,8 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         onChange={valorEstimado}
         placeholder='Coloque um valor que você predendia gastar..'
       />
+
+    
     {/* <LineChart width={1100} height={500} data={parsedData} margin={{top:30,right: 9, bottom: 5, left: 100 }}>
     <Line type="monotone" dataKey="ano" stroke="#2196F3" strokeWidth={3} />
     <Line width={500} type="monotone"dataKey='Valor'stroke="#F44236"strokeWidth={3} />
@@ -127,8 +205,15 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
     <Legend />
   </LineChart> */}
   {/*--------------------------------------------- */}
-  
-  <BarChart className='primeiroGrafico'width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}} data={dataInfo} barGap={15}>
+
+  <div id="conteudo" >
+    {/* <VerArquivoPDF/> */}
+    <div className='Mês'>
+     <p>Mês/Dia Com mais Lucros: {mesDeLucros}</p>
+     <p>Mês/Dia Com mais Gastos: {mesDeGastos}</p>
+    </div>
+      
+        <BarChart className='primeiroGrafico'width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}} data={dataInfo} barGap={15}>
       <Legend stroke='#add8e6'/>
         <XAxis dataKey='name2' />
         <YAxis stroke="#000000"/>
@@ -139,41 +224,51 @@ import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar
         <Bar name='Total Pretendido'dataKey="total3" barSize={35} fill="#570d9c"  />
         <Bar name='Total Final'dataKey="total4" barSize={35} fill="#d8d51f" />
       </BarChart>
-
-
+{/* 
       <PieChart width={700} height={700}>
-  <Pie
-    dataKey="value"
-    data={data}
-    // Ajuste para centralizar verticalmente
-    innerRadius={40}
-    outerRadius={80}
-    
-    label // Ativando a exibição dos valores dentro do gráfico
-  />
+        <Pie
+         dataKey="value"
+         data={data}
+        innerRadius={80}
+        outerRadius={160}
+        label
+        />
+        <Pie
+         dataKey="value"
+         data={data2}
+        innerRadius={80}
+        outerRadius={900}
+        label
+        />
   
-  <Legend />
-  <Tooltip />
-</PieChart>
-
-
-
- 
-
-      {/* <PieChart width={400} height={400}>
-          <Pie
-            data={dataInfo}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-           
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="segundoNumero"
-          >
-           
-          </Pie>
+         <Legend />
+        <Tooltip />
         </PieChart> */}
+
+<AreaChart className='segundoGrafico'
+        
+          data={arrayDeTodosOsNumeros}
+          width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <defs>
+            <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset={off} stopColor="#4fe708" /* stopOpacity={1}  *//>
+              <stop offset={off} stopColor="#e20b0b"  />
+            </linearGradient>
+          </defs>
+          <Area type="monotone" dataKey="total" stroke="#000" fill="url(#splitColor)"/>
+        </AreaChart>
+        </div>
+
+        {buttonLoaded && (
+        <div className='gerarPDF'>
+          <button onClick={() => generatePDF(recuperarConteudoParaPDF, personalizacao,)}>Gerar PDF</button>
+        </div>
+        )}
 
     </div>
   );

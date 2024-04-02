@@ -4,15 +4,14 @@ import Papa from "papaparse";
 import XLSX from 'xlsx'
 import { LineChart, Line } from 'recharts';
 
-const VerArquivo = () => {
+const VerArquivoPDF = () => {
   
 
   const [parsedData, setParsedData] = useState([]);
 
   const [valoresJuntosArray, setValoresJuntosArray] = useState([]);
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
-  const [colunasEscondidas, setColunasEscondidas] = useState(false);
-  const [colunasDaTabelaExtras, setColunasDaTabelaExtras] = useState(['Tipo','Nomes','CPF','Banco']);
+  const [colunasDaTabelaExtras, setColunasDaTabelaExtras] = useState(['Tipo','Nomes','Dados Do Banco','Banco']);
 
   //State to store the values
   const [values, setValues] = useState([]);
@@ -61,7 +60,6 @@ const VerArquivo = () => {
         const valoresJuntosArray = valuesArray.map((value, index) => {
           return value.concat(valuesExtrasArray[index]);
       });
-      setColunasEscondidas(true)
       setValoresJuntosArray(valoresJuntosArray);
       },
     });
@@ -69,6 +67,7 @@ const VerArquivo = () => {
 
   return (
     <div>
+     
       {/* File Uploader */}
       <input
         type="file"
@@ -84,12 +83,11 @@ const VerArquivo = () => {
           {/* Colunas */}
           <tr>
             {colunasDaTabela.map((colunas, index) => {
-              return <th key={index}>{colunas}</th>;
+              return <th key={index}>{colunas}</th> 
             })}
-            {colunasEscondidas &&
-              colunasDaTabelaExtras.map((coluna, index) => (
-                <th key={index}>{coluna}</th>
-              ))}
+            {colunasDaTabelaExtras.map((colunas, index) => {
+              return <th key={index}>{colunas}</th> 
+            })}
           </tr>
         </thead>
         <tbody>
@@ -98,20 +96,17 @@ const VerArquivo = () => {
             return (
               <tr key={index}>
                 {valor.map((valor, i) => {
-                  return (
-                    <td className="valores" key={i}>
-                      {valor}
-                    </td>
-                  );
+                  return <td className='valores'key={i}>{valor}</td>;
                 })}
               </tr>
             );
           })}
+
         </tbody>
       </table>
     </div>
   );
 }
 
-export default VerArquivo;
+export default VerArquivoPDF;
 
