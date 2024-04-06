@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Papa from "papaparse";
 import generatePDF, { Margin } from 'react-to-pdf';
 import VerArquivoPDF from './VerArquivoPDF';
+import { format } from 'date-fns';
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer,  } from '@react-pdf/renderer';
 
 import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area,PieChart,Pie, RadialBarChart,RadialBar} from "recharts";
@@ -41,7 +42,6 @@ const personalizacao = {
       complete: function (results) {
         const rowsArray = [];
         const valuesArray = [];
-        const dinheiro = []
 
         // Iterating data to get column name and their values
         results.data.map((d) => {
@@ -70,7 +70,9 @@ const personalizacao = {
       const [totalDeLucros, setTotalDeLucros] = useState(0);
       const [totalFinal, setTotalFinal] = useState(0);
       const [mesDeGastos, setMesDeGastos] = useState(0);
+      const [mesesComMaisGastos, setMesesComMaisGastos] = useState([]);
       const [mesDeLucros, setMesDeLucros] = useState(0);
+
       useEffect(() => {
         const numeroMenor = [];
     let totalMenor = 0;
@@ -80,8 +82,9 @@ const personalizacao = {
     var mesComMaisLucro = '';
     var maiorValor = 0;
     var mesComMaisGasto = '';
+     var mesesComMaisGastos = []; 
     var menorValor = 0;
-    
+     
     for (let i = 0; i < parsedData.length; i++) {
       
         if (parsedData[i].Valor < 0) {
@@ -90,9 +93,15 @@ const personalizacao = {
             todosOsNumeros.push(parsedData[i].Valor);
             
             if (parsedData[i].Valor < menorValor) {
+              
               menorValor = Number(parsedData[i].Valor);
               mesComMaisGasto = parsedData[i].Data;
-            }
+              var diaMesAno = parsedData[i].Data.split('/')
+              
+              mesesComMaisGastos.push(diaMesAno[1])
+
+              console.log(mesesComMaisGastos);
+            } 
           
         } else {
             totalMaior += +parsedData[i].Valor;
@@ -105,8 +114,16 @@ const personalizacao = {
               mesComMaisLucro = parsedData[i].Data; 
           }
         }
-        
     }
+  /*   const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+
+for (let i = 0; i < mesesComMaisGastos.length; i++) {
+    const numeroDoMes = mesesComMaisGastos[i]; // Obtém o número do mês
+    const nomeDoMes = meses[parseInt(numeroDoMes, 10) - 1]; 
+    console.log(nomeDoMes);
+} */
+    console.log();
     setMesDeGastos(mesComMaisGasto)
     setMesDeLucros(mesComMaisLucro)
   
@@ -207,11 +224,10 @@ const personalizacao = {
   {/*--------------------------------------------- */}
 
   <div id="conteudo" >
-    {/* <VerArquivoPDF/> */}
-    <div className='Mês'>
-     <p>Mês/Dia Com mais Lucros: {mesDeLucros}</p>
+    {/* <div className='Mês'>
+     <p>Mês/Dia Com mais Lucros: {mesesComMaisGastos}</p>
      <p>Mês/Dia Com mais Gastos: {mesDeGastos}</p>
-    </div>
+    </div> */}
       
         <BarChart className='primeiroGrafico'width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}} data={dataInfo} barGap={15}>
       <Legend stroke='#add8e6'/>

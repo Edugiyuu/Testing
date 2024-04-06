@@ -13,6 +13,7 @@ html {
   --color-light: #adf;
   --color-dark: #018;
   --radius: 0.2rem;
+  /* #6CD4FF #8B80F9 */
 }
 /* 
 body {
@@ -58,7 +59,7 @@ label {
 input,
 textarea {
   display: block;
-  border: 1px solid #ccc;
+  border: 1px solid #190933;
   
   padding: 0.8rem;
   border-radius: var(--radius);
@@ -115,13 +116,13 @@ hr {
   justify-content:flex-start;
   gap: 16%;
   font-weight: bold;
-  
+  border-radius: 5px;
   border: 2px solid rgb(0, 0, 0);
   /* border-radius: 9px; */
   padding: 10px;
   box-shadow: 5px 5px lightblue;
 
-    background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
 }
 input{
   
@@ -161,7 +162,7 @@ input{
   margin-left: 20px;
  
   border: 2px solid rgb(0, 0, 0);
-  box-shadow: 5px 5px rgb(208, 151, 255);
+  box-shadow: 5px 5px #6CD4FF;
 
   
 }

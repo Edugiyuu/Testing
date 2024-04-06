@@ -42,15 +42,7 @@ console.log(arr);
   XLSX.writeFile(arquivo, "ExtratoBancárioNovo.xlsx");
   console.log(totalPayments);
   console.log(totalBankCharge); */
-  const Papa = require('papaparse');
-
-
-const test = 'Coluna111,Edu,HELO';
-
-console.log(Papa.parse(test));
-
-const valores = ['-1210.00', '-109.90', '-10.00', '-30.00', '-130.00', '-5.00', '-50.00', '-640.35', '-20.00', '-30.00', '-327.06', '-54.77', '-4382.69', '-400.00', '-636.59', '-73.72', '-1000.00', '-500.00', '-132.00', '-14500.00', '-10000.00', '-21.07', '-245.00', '-80.00', '-43.50', '-372.71', '-100.00', '-150.00', '-31.53', '-117.06', '-149.97', '-47.92', '-40.00', '-100.00', '-20.00', '-17.00', '-169.56', '-35.00', '-45.00', '-300.00', '-29.00'];
-
-const arrayDeObjetos = valores.map(valor => ({ valor: parseFloat(valor) }));
-
-console.log(arrayDeObjetos);
+  const Data = '12/01/2022'
+  const Data2 = ['12/03/2022','12/01/2022','22/07/2022','03/04/2022','11/02/2022']
+  const reverse = Data.split('').reverse().join('');
+  console.log(reverse); // "olleh"
