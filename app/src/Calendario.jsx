@@ -2,9 +2,15 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Papa from "papaparse";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 
 export function Calendario() {
+ 
+
+  
+ /*  if (typeof valorDoSaldo === 'undefined') {
+    return <div>Carregando...</div>;
+  } */
   const [parsedData, setParsedData] = useState([]);
   const [cadaData, setCadaData] = useState([]);
   const [todosOsValores, setTodosOsValores] = useState([]);
@@ -70,10 +76,10 @@ export function Calendario() {
     console.log(todosOsValoresCompletos);
 
     const eventosCompletos = cadaData.map((data, index) => ({
-      title: todosOsValores[index],
+      title: `R$ ${todosOsValores[index]}`,
       date: data,
-      color: todosOsValores[index] >= 0 ? '#62ca1c' : '#d42121', // Definindo a cor com base no valor
-      borderColor:'lightblue',
+      color: todosOsValores[index] >= 0 ? '#62ca1c' : '#d62727', // Definindo a cor com base no valor
+      borderColor:'black',
       
     }));
     const todosEventos = [
@@ -84,8 +90,11 @@ export function Calendario() {
       { title: 'event 1', date: '2024-04-04' },
       { title: 'event 2', date: '2019-04-02' }
     ]  
+    
   return (
     <div>
+      
+  
       <input
         type="file"
         name="file"

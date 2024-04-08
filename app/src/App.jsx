@@ -7,13 +7,14 @@ import Menu from "./Menu";
 import "./app.css";
 import VerArquivo from "./VerArquivo";
 import Calendario from "./Calendario";
-
+import { UserStorage } from "./UserContext";
 
 const App = () => {
 
   return (
     
     <BrowserRouter >
+    <UserStorage>
     <Menu/>
     <Routes>
       <Route path="/" element={<Home />} />
@@ -25,7 +26,7 @@ const App = () => {
      {/*  <Route path="*" element={<Pagina404 />}/> */}
       
     </Routes>
-      
+    </UserStorage>
     </BrowserRouter>
       
     
