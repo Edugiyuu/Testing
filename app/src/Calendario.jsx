@@ -3,14 +3,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import Papa from "papaparse";
 
 import React, { useState, useEffect,useContext } from 'react';
-
 export function Calendario() {
- 
 
-  
- /*  if (typeof valorDoSaldo === 'undefined') {
-    return <div>Carregando...</div>;
-  } */
   const [parsedData, setParsedData] = useState([]);
   const [cadaData, setCadaData] = useState([]);
   const [todosOsValores, setTodosOsValores] = useState([]);
@@ -64,12 +58,7 @@ export function Calendario() {
     console.log(valoresNegativos);
     console.log(valoresPositivos);
 
-    const dataCompleta = cadaData.map(data => ({date: data,}))
     const todosOsValoresCompletos = todosOsValores.map(title => ({title: Number(title),}))
-    const valoresNegativosCompletos = valoresNegativos.map((title, index) => ({
-      title: Number(title),
-      date: cadaData[index], // Adicionando a data correspondente
-    }));
     
     
 
@@ -85,16 +74,10 @@ export function Calendario() {
     const todosEventos = [
       ...eventosCompletos,
     ];
-        
-    var test = [
-      { title: 'event 1', date: '2024-04-04' },
-      { title: 'event 2', date: '2019-04-02' }
-    ]  
     
   return (
     <div>
       
-  
       <input
         type="file"
         name="file"

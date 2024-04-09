@@ -1,35 +1,39 @@
-import { useState, createContext, useContext } from "react";
-import { UserContext} from "./UserContext";
+import React, { useState, useContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const Home = () => {
-  const contex = useContext(UserContext)
-  console.log(contex);
-  const [valorDoSaldo, setValorDoSaldo] = useState(1);
+  const { usuario, setUsuario } = useContext(UserContext); // Aqui acessamos o contexto
+  const [valorDoSaldo, setValorDoSaldo] = useState(0); // Inicializamos o estado do saldo com 0
 
   const valorEstimado = (event) => {
     const valorDigitado = event.target.value;
-    setValorDoSaldo(Number(valorDigitado)); 
-  }
+    setValorDoSaldo(valorDigitado);
+  };
 
   const SalvarSaldo = () => {
-    console.log(valorDoSaldo);
-  }
-  
+    setUsuario(valorDoSaldo); 
+  };
+
   return (
     <div>
-      <h1>{contex.usuario}</h1>
       <input
-        type='number'
-        name="valorEstimado"
-        onChange={valorEstimado}
-        placeholder='Coloque um valor que você pretende gastar..'
+        type="text"
+        /* onChange={valorEstimado} */
+        placeholder="Seu Nome aqui.."
       />
+      <input
+        type="number"
+        onChange={valorEstimado}
+        placeholder="Coloque seu saldo atual.."
+      />
+      {/* <h1>{usuario}</h1>  */}
+      
       <button onClick={SalvarSaldo}>
         Save
       </button>
-      
     </div>
   );
 };
+
 
 export default Home;

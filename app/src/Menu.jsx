@@ -9,7 +9,7 @@ const Menu = () => {
   return (
     <div className="Menu">
       
-      <img src={Csvconverter} alt="Logo" className="logo"/>
+      <img src={Csvconverter} alt="Logo" className="logo" /* onClick={} *//>
       
       <NavLink className={'NavLink'} to={`/`}>Home</NavLink>
       <NavLink className={'NavLink'} to={`/verArquivo/`}>Ver Arquivo</NavLink>

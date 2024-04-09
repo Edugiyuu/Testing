@@ -8,6 +8,7 @@ import "./app.css";
 import VerArquivo from "./VerArquivo";
 import Calendario from "./Calendario";
 import { UserStorage } from "./UserContext";
+import { SaldosEtc } from "./SaldosEtc";
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
     <BrowserRouter >
     <UserStorage>
     <Menu/>
+    <SaldosEtc/>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="verArquivo/" element={<VerArquivo />} />
