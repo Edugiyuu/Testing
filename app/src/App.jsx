@@ -17,7 +17,7 @@ const App = () => {
     <BrowserRouter >
     <UserStorage>
     <Menu/>
-    <SaldosEtc/>
+    
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="verArquivo/" element={<VerArquivo />} />

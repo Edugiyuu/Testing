@@ -1,12 +1,22 @@
 
 import React, { useState, useEffect,useContext } from 'react';
 import { UserContext } from "./UserContext";
+import { Link } from 'react-router-dom';
 export const SaldosEtc = () => {
-    const { usuario } = useContext(UserContext);
+    const { valorDoSaldoReal,nomeReal} = useContext(UserContext);
 
   return (
-    <div className='Saldo'>
-        <h1 >Seu Saldo: R${usuario}</h1>
+    <div className="verSaldoEtc">
+       <div className='Nome'>
+        <h2>Bem-vindo {nomeReal}!</h2>
+      </div> 
+      <div className='Saldo'>
+        <h2>Seu Saldo: R${valorDoSaldoReal}</h2>
+      </div>
+      <br />
+      <Link className={'NavLink'} to={`/`}>Editar..</Link>
+    
     </div>
+    
   )
 }

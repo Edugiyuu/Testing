@@ -113,9 +113,9 @@ hr {
   display: flex;
   
   flex-direction: row;
-  align-items: center;
+  align-items:center;
   justify-content:flex-start;
-  gap: 13%;
+  gap: 9%;
 
   font-weight: bold;
   border-radius: 5px;
@@ -126,9 +126,9 @@ hr {
 
   background-color: rgb(255, 255, 255);
 }
- .Saldo{
+ /* .Saldo{
   display: flex;
-  
+  font-size: small;
   flex-direction: row;
   align-items: center;
   justify-content:center;
@@ -141,7 +141,20 @@ hr {
   border-radius: 8px;
   box-shadow: 5px 5px lightblue;
 
- }
+ } */
+ .Saldo{
+  display: flex;
+  font-size: small;
+  flex-direction: row;
+  align-items: center;
+  justify-content:center;
+  border: 2px solid #5f50ff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 5px 5px lightblue;
+
+ } 
+ 
  .Saldo:hover{
   h1{
     color: #9c32ff;
@@ -199,7 +212,7 @@ input{
   color: rgb(0, 0, 0);
   font-size: smaller;
   padding: 25px;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px dashed #5f50ff;
   border-radius: 5px;
 }
 .logo{
@@ -224,7 +237,15 @@ input{
   box-shadow: 3px 3px lightblue;
   transition:100ms;
 }
+.MenuBar{
+ 
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  border: 4px solid #5f50ff;
 
+  background-color: rgb(255, 255, 255);
+}
 .download{
   display: flex;
   flex-direction: column;
@@ -287,4 +308,34 @@ button{
   margin-top: 3%;
   width: 50%;
   border-radius: 9px;
+}
+.arquivoDeQuem{
+  font-size: larger;
+  margin: 25px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 3%;
+  width: 50%;
+  border-radius: 9px;
+}
+.verSaldoEtc {
+  padding: 10px;
+  position:absolute;
+  margin-top: 5px;
+  z-index: 9;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(0, 0, 0);
+  width: 20%;
+  height:70%;
+  border-radius: 9px;
+  transform: translateX(-70px);
+  animation: animeLeft 0.4s forwards;
+}
+
+
+@keyframes animeLeft {
+  to {
+    opacity: initial;
+    transform: initial;
+  }
 }

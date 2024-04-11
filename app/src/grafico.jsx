@@ -1,9 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import Papa from "papaparse";
 import generatePDF, { Margin } from 'react-to-pdf';
 import VerArquivoPDF from './VerArquivoPDF';
-import { format } from 'date-fns';
+import { UserContext } from "./UserContext";
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer,  } from '@react-pdf/renderer';
 
 import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area,PieChart,Pie, RadialBarChart,RadialBar} from "recharts";
@@ -23,7 +23,7 @@ const personalizacao = {
 
 
  const Grafico = () => {
-    
+  const { valorDoSaldoReal,nomeReal} = useContext(UserContext);
     const [parsedData, setParsedData] = useState([]);
       
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
@@ -115,14 +115,6 @@ const personalizacao = {
           }
         }
     }
-  /*   const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
-
-for (let i = 0; i < mesesComMaisGastos.length; i++) {
-    const numeroDoMes = mesesComMaisGastos[i]; // Obtém o número do mês
-    const nomeDoMes = meses[parseInt(numeroDoMes, 10) - 1]; 
-    console.log(nomeDoMes);
-} */
     console.log();
     setMesDeGastos(mesComMaisGasto)
     setMesDeLucros(mesComMaisLucro)
@@ -163,19 +155,17 @@ for (let i = 0; i < mesesComMaisGastos.length; i++) {
         name: "Total de Lucro",total2: Math.floor(totalDeLucros),
         name: "Total Es",total3: valorColocado,
         name: "Total Final",total4: Math.floor(totalFinal),
+        name: "Saldo Atual",total5: Math.floor(Number(valorDoSaldoReal) + totalFinal),
         }]
-        const dataInfoJunto =[
-          { name: "Total de Gastos", value: Math.floor(totalDeGastos)},
-          { name: "Total de Lucro",value: Math.floor(totalDeLucros)}
-        ];
         const data = [
-          { name: 'Total Lucros', value: totalDeLucros, fill: '#FF5733' },
-          { name: 'Total Esperado', value: valorColocado, fill: '#33FF57' },
-          { name: 'Outro Valor', value: totalDeLucros, fill: '#5733FF' },
-          { name: 'Total Final', value: Math.floor(totalFinal), fill: '#d2fd12' }
+          { name: 'Total Gasto', value: Math.abs(totalDeGastos), fill: '#cc2020' },
+           /* { name: 'Total Esperado', value: valorColocado, fill: '#33FF57' },  */
+          { name: 'Total De Lucro', value: totalDeLucros, fill: '#48e421' },
+          { name: 'Total Final', value: Math.floor(totalFinal), fill: '#d2fd12' },
+          { name: 'Saldo', value: Math.floor(valorDoSaldoReal), fill: '#00c3ff' },
         ];
         const data2 = [
-          { name: 'Total Lucros', value2: totalDeGastos, fill: '#FF5733' },
+          { name: 'Total Lucros', value2: totalDeGastos, fill: '#ff2f00' },
           
         ];
         const gradientOffset = () => {
@@ -228,38 +218,32 @@ for (let i = 0; i < mesesComMaisGastos.length; i++) {
      <p>Mês/Dia Com mais Lucros: {mesesComMaisGastos}</p>
      <p>Mês/Dia Com mais Gastos: {mesDeGastos}</p>
     </div> */}
-      
+      <h2 className='arquivoDeQuem'>Arquivo csv do: {nomeReal}.</h2>
         <BarChart className='primeiroGrafico'width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}} data={dataInfo} barGap={15}>
       <Legend stroke='#add8e6'/>
         <XAxis dataKey='name2' />
         <YAxis stroke="#000000"/>
         <Tooltip />
         <CartesianGrid stroke="#add8e6" />
-        <Bar name='Total De Gastos'dataKey="total" barSize={35} fill="#ca0404" baseProfile={9} />
-        <Bar name='Total De Lucros'dataKey="total2" barSize={35} fill="#43ca04" />
-        <Bar name='Total Pretendido'dataKey="total3" barSize={35} fill="#570d9c"  />
-        <Bar name='Total Final'dataKey="total4" barSize={35} fill="#d8d51f" />
+        <Bar name='Total De Gastos'dataKey="total" barSize={50} fill="#ca0404" baseProfile={9} label/>
+        <Bar name='Total De Lucros'dataKey="total2" barSize={50} fill="#43ca04"label />
+        <Bar name='Total Pretendido'dataKey="total3" barSize={50} fill="#570d9c"  label/>
+        <Bar name='Total Final'dataKey="total4" barSize={50} fill="#eeea19" label/>
+        <Bar name='Saldo Atual'dataKey="total5" barSize={50} fill="#17bacf" label/>
       </BarChart>
-{/* 
+ 
       <PieChart width={700} height={700}>
         <Pie
          dataKey="value"
          data={data}
-        innerRadius={80}
+   /*      innerRadius={20} */
         outerRadius={160}
         label
         />
-        <Pie
-         dataKey="value"
-         data={data2}
-        innerRadius={80}
-        outerRadius={900}
-        label
-        />
-  
+        
          <Legend />
         <Tooltip />
-        </PieChart> */}
+        </PieChart> 
 
 <AreaChart className='segundoGrafico'
         
