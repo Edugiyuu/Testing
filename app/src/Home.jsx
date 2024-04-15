@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./UserContext";
-
 export const Home = () => {
+  
   const { nomeReal, setNomeReal } = useContext(UserContext);
   const { valorDoSaldoReal, setValorDoSaldoReal } = useContext(UserContext); // Aqui acessamos o contexto
   const [valorDoSaldo, setValorDoSaldo] = useState(0); // Inicializamos o estado do saldo com 0
@@ -25,8 +25,10 @@ export const Home = () => {
     <div>
       <input
         type="text"
-         onChange={InputNome}
+        required
+       onChange={InputNome}
         placeholder="Seu Nome aqui.."
+        
       />
       <input
         type="number"

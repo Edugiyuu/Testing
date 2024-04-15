@@ -55,8 +55,7 @@ export function Calendario() {
       
     }  }, [parsedData])
         
-    console.log(valoresNegativos);
-    console.log(valoresPositivos);
+   
 
     const todosOsValoresCompletos = todosOsValores.map(title => ({title: Number(title),}))
     
@@ -74,7 +73,10 @@ export function Calendario() {
     const todosEventos = [
       ...eventosCompletos,
     ];
-    
+     const dateClick = (info) => {
+    alert('Date: ' + info.dateStr);
+    alert('Resource ID: ' + info.resource.id);
+  }
   return (
     <div>
       
@@ -84,7 +86,8 @@ export function Calendario() {
         onChange={handleFileChange}
         accept=".csv"
       />
-
+      <input type="date" />
+      <input type="date" />
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

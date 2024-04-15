@@ -14,6 +14,7 @@ const Menu = () => {
   return (
     <div>
       <div className="Menu">
+
         <img src={MenuBar} alt="Logo" className="MenuBar" onClick={toggleBlockVisibility} />
         <img src={Csvconverter} alt="Logo" className="logo" onClick={toggleBlockVisibility} />
         
@@ -29,6 +30,7 @@ const Menu = () => {
         </div>
         
       )}
+
     </div>
   );
 };

@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useContext} from 'react';
 import Papa from "papaparse";
 import generatePDF, { Margin } from 'react-to-pdf';
-import VerArquivoPDF from './VerArquivoPDF';
 import { UserContext } from "./UserContext";
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer,  } from '@react-pdf/renderer';
 
@@ -159,7 +158,7 @@ const personalizacao = {
         }]
         const data = [
           { name: 'Total Gasto', value: Math.abs(totalDeGastos), fill: '#cc2020' },
-           /* { name: 'Total Esperado', value: valorColocado, fill: '#33FF57' },  */
+            { name: 'Total Esperado', value: valorColocado, fill: '#8b33ff' },  
           { name: 'Total De Lucro', value: totalDeLucros, fill: '#48e421' },
           { name: 'Total Final', value: Math.floor(totalFinal), fill: '#d2fd12' },
           { name: 'Saldo', value: Math.floor(valorDoSaldoReal), fill: '#00c3ff' },
@@ -187,6 +186,7 @@ const personalizacao = {
         
   return (
     <div>
+
       <input
         type="file"
         name="file"
@@ -232,7 +232,7 @@ const personalizacao = {
         <Bar name='Saldo Atual'dataKey="total5" barSize={50} fill="#17bacf" label/>
       </BarChart>
  
-      <PieChart width={700} height={700}>
+      <PieChart className='pieGrafico'width={1100} height={500} margin={{right: 9, bottom: 0, left: 100 ,top: 10}}>
         <Pie
          dataKey="value"
          data={data}
