@@ -37,7 +37,13 @@ export function Calendario() {
     console.log(datasFormatadas);
     
   }, [parsedData]);
-  
+
+  const dateAteDate = (event) => {
+    const data1 = event.target.value;
+    const data2 = data1.split('/')
+    const dataFormatada = data2.reverse() .join('-') ;
+    console.log(dataFormatada);
+  };
   var percorerOsValores = []
   var percorerOsValoresNegativos = []
   var percorerOsValoresPositivos = []
@@ -56,7 +62,6 @@ export function Calendario() {
     }  }, [parsedData])
         
    
-
     const todosOsValoresCompletos = todosOsValores.map(title => ({title: Number(title),}))
     
     
@@ -73,10 +78,7 @@ export function Calendario() {
     const todosEventos = [
       ...eventosCompletos,
     ];
-     const dateClick = (info) => {
-    alert('Date: ' + info.dateStr);
-    alert('Resource ID: ' + info.resource.id);
-  }
+    
   return (
     <div>
       
@@ -86,8 +88,8 @@ export function Calendario() {
         onChange={handleFileChange}
         accept=".csv"
       />
-      <input type="date" />
-      <input type="date" />
+      <input type="date" onChange={dateAteDate}/>
+      <input type="date" onChange={dateAteDate} />
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"

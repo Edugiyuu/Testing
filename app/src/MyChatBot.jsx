@@ -1,58 +1,95 @@
 import React from "react";
 import ChatBot from "react-chatbotify";
 import "react-chatbotify/dist/react-chatbotify.css";
+import assistente from './imgs/image.png'
 
 const MyChatBot = () => {
+ 
   const options = {
-		
-		theme: {
-			embedded: true,
-			primaryColor: "#a41af4",
-			secondaryColor: "#070707",
+    isOpen: false,
+ 
+    theme: {
+      primaryColor: '#5f50ff',
+      secondaryColor: '#7135d1',
+      embedded:false,
+      showFooter:false,
+      showHeader:true,
+      showInputRow: false,
       
-		},
-		chatHistory: {
-			storageKey: "example_theming"
-		}}
+    },
+    header: {
+      title: (
+          <h3 style={{cursor: "pointer", margin: 0}}>Assistente</h3>
+      ),
+      showAvatar: true,
+      avatar: assistente,
+    
+    },
+    tooltip: {
+      mode: false,
+      text: false,
+    },
+    chatHistory: {
+      disabled: true,
+    },
+    chatInput:{
+      disabled: true,
+    },
+    chatButton: {
+      icon: false,
+     
+    },
+    botBubble: {
+      animate: true,
+      showAvatar: false,
+      avatar: assistente,
+      simStream: true,
+      streamSpeed: 25,
+    },
+
+    chatWindowStyle: { width: '95%', height: '93%', left:'5px'},
+    headerStyle: {backgroundColor: "red"},
+   
+  };
   const flow = {
     start: {
       message: "Ei! Alguma duvida de como usar o CSV to see?",
-      options: ["Graficos", "Csv", "Discord"],
+      options: ["Graficos..", "Csv..", "Calendario..","Ver Arquivo.."],
       path: "process_options"
     },
     process_options: {
       message: (params) => {
-          let link = "";
+         
           switch (params.userInput) {
-          case "Examples":
-              link = "https://react-chatbotify.tjtanjin.com/docs/examples/basic_form";
-              break;
-          case "Github":
-              link = "https://github.com/tjtanjin/react-chatbotify/";
-              break;
-          case "Discord":
-              link = "https://discord.gg/6R4DK4G5Zh";
-              break;
+          case "Graficos..":
+            return "Nos gráficos, você pode colocar o arquivo CSV, visualizar seus gastos, lucros e o total, tudo de forma visual. Também pode gerar um PDF com os graficos, caso queira.";
+            
+          case "Csv..":
+            return "No arquivo csv, deve conter as Informaçoes do seu extrato, como: Data, Valor, etc..";
+            
+          case "Calendario..":
+              return "No calendario é possivel ver qual dia/Mês/Ano quais são os valores gastos ou ver os lucros."
+              
+          case "Ver Arquivo..":
+            return "Em ver arquivo, é possivel ver seu arquivo CSV, de forma simples e um tanto organizada com colunas adicionas";
+            
           default:
               return "unknown_input";
           }
-          setTimeout(() => {
-              window.open(link);
-          }, 1000)
-          return `Sit tight! I'll send you to ${params.userInput}!`;
+          
       },
       transition: {duration: 1},
       path: "loop"
     },
-   /*  loop: {
-      message: "Do you need any more help?",
-      options: ["Examples", "Github", "Discord"],
+     loop: {
+      message: "Mais Alguma duvida?",
+      options: ["Graficos..", "Csv..", "Calendario..","Ver Arquivo.."],
       path: "process_options"
-    }, */
+    }, 
   }
 
   return (
-    <ChatBot flow={flow} options={options}/>
+    <ChatBot flow={flow} options={options} />
   );
 };
 
