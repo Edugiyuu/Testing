@@ -22,6 +22,7 @@ const Menu = () => {
         <NavLink className={'NavLink'} to={`/verArquivo/`}>Ver Arquivo</NavLink>
         <NavLink className={'NavLink'} to={`/grafico/`}>Gráficos</NavLink>
         <NavLink className={'NavLink'} to={`/calendario/`}>Calendario</NavLink>
+        <NavLink className={'NavLink'} to={`/resumo/`}>Resumo</NavLink>
       </div>
       
       {blockVisible && (

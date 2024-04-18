@@ -24,7 +24,7 @@ export function Calendario() {
     const formatarDatas = () => {
       const datasFormatadas = parsedData.map(item => {
         const partesData = item.Data.split('/');
-        const dataFormatada = partesData.reverse() .join('-') ;
+        const dataFormatada = partesData.reverse().join('-');
         return dataFormatada;
       });
       return datasFormatadas;
@@ -88,8 +88,7 @@ export function Calendario() {
         onChange={handleFileChange}
         accept=".csv"
       />
-      <input type="date" onChange={dateAteDate}/>
-      <input type="date" onChange={dateAteDate} />
+       
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
