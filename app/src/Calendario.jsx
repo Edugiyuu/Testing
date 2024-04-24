@@ -1,7 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Papa from "papaparse";
-import { UserContext } from "./UserContext";
 import handleFileChange from './HandleFile';
 import React, { useState, useEffect, useContext } from 'react';
 
@@ -11,7 +10,6 @@ export function Calendario() {
     JSON.parse(localStorage.getItem('parsedData')) || []
     // aqui ele está pegando a chave que está no HandleFile.jsx e
   );
-  const { saveFile, setSaveFile } = useContext(UserContext);
   const [cadaData, setCadaData] = useState([]);
   const [todosOsValores, setTodosOsValores] = useState([]);
   const [valoresNegativos, setValoresNegativos] = useState([]);

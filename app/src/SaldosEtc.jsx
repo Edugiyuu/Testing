@@ -15,11 +15,6 @@ export const SaldosEtc = () => {
       <div className='Saldo'>
         <h2>Seu Saldo: R${valorDoSaldoReal}</h2>
       </div>
-      <div>
-        <p>
-          Funciona pfv: {saveFile}
-        </p>
-      </div>
       <br />
       <Link className={'NavLink'} to={`/`}>Editar..</Link>
     

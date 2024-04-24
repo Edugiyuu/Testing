@@ -11,24 +11,20 @@ import Papa from 'papaparse';
   });
 };  */
 
-
-  const handleFileChange = (event, setParsedData, currentData) => {
+// pra não confundir eu deixei os parametros iguais ao valores reais
+const handleFileChange = (event, setParsedData, parsedData) => {
   Papa.parse(event.target.files[0], {
     header: true,
     skipEmptyLines: true,
     complete: function (results) {
-      const newParsedData = [...currentData];
+      const newParsedData = parsedData.concat(results.data);
 
-      for (let i = 0; i < results.data.length; i++) {
-       newParsedData.push(results.data[i]);
-      } 
-      
       setParsedData(newParsedData);
-      localStorage.setItem('parsedData', JSON.stringify(newParsedData)); // Atualiza o localStorage
-      //                     ^^ aqui ele cria o parsedData no local storage 
+      localStorage.setItem('parsedData', JSON.stringify(newParsedData));
     },
   });
-}; 
+};
+
  
 
 
