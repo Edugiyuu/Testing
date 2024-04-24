@@ -67,6 +67,7 @@ export function Calendario() {
     const todosEventos = [
       ...eventosCompletos,
     ];
+    console.log(parsedData);
     
   return (
     <div>
