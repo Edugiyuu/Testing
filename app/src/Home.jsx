@@ -1,10 +1,15 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "./UserContext";
+import Download from "./Download";
+import handleFileChange from './HandleFile';
 export const Home = () => {
-  
+  const [parsedData, setParsedData] = useState(
+    JSON.parse(localStorage.getItem('parsedData')) || []
+    // aqui ele está pegando a chave que está no HandleFile.jsx e
+  );
   const { nomeReal, setNomeReal } = useContext(UserContext);
-  const { valorDoSaldoReal, setValorDoSaldoReal } = useContext(UserContext); // Aqui acessamos o contexto
-  const [valorDoSaldo, setValorDoSaldo] = useState(0); // Inicializamos o estado do saldo com 0
+  const { valorDoSaldoReal, setValorDoSaldoReal } = useContext(UserContext); 
+  const [valorDoSaldo, setValorDoSaldo] = useState(0); 
   const [nome, setNome] = useState('');
 
   const InputSaldo = (event) => {
@@ -20,9 +25,19 @@ export const Home = () => {
     setValorDoSaldoReal(valorDoSaldo);
     setNomeReal(nome)
   };
-
+  const limparDadosLocalStorage = () => {
+    localStorage.removeItem('parsedData');
+    setParsedData([]); 
+  };
   return (
     <div>
+      <input
+        type="file"
+        name="file"
+        onChange={(event) => handleFileChange(event, setParsedData, parsedData)}
+        accept=".csv"
+      />
+      
       <input
         type="text"
         required
@@ -41,6 +56,7 @@ export const Home = () => {
       <button onClick={SalvarSaldo}>
         Save
       </button>
+      <button onClick={limparDadosLocalStorage}>Limpar Dados</button>
     </div>
   );
 };

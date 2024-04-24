@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext} from 'react';
 import Papa from "papaparse";
 import generatePDF, { Margin } from 'react-to-pdf';
 import { UserContext } from "./UserContext";
+import handleFileChange from './HandleFile';
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer,  } from '@react-pdf/renderer';
 
 import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area,PieChart,Pie, RadialBarChart,RadialBar} from "recharts";
@@ -39,7 +40,12 @@ const personalizacao = {
       header: true,
       skipEmptyLines: true,
       complete: function (results) {
-        const rowsArray = [];
+              
+        setParsedData(results.data);     
+      },
+      
+    });
+      const rowsArray = [];
         const valuesArray = [];
 
         // Iterating data to get column name and their values
@@ -57,8 +63,6 @@ const personalizacao = {
 
         // Filtered Values
         setValues(valuesArray);
-      },
-    });
   };
  
 
@@ -264,11 +268,10 @@ const personalizacao = {
         </AreaChart>
         </div>
 
-        {buttonLoaded && (
-        <div className='gerarPDF'>
+        
           <button onClick={() => generatePDF(recuperarConteudoParaPDF, personalizacao,)}>Gerar PDF</button>
-        </div>
-        )}
+        
+        
 
     </div>
   );

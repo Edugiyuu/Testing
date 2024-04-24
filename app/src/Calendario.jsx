@@ -1,24 +1,21 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Papa from "papaparse";
+import { UserContext } from "./UserContext";
+import handleFileChange from './HandleFile';
+import React, { useState, useEffect, useContext } from 'react';
 
-import React, { useState, useEffect,useContext } from 'react';
 export function Calendario() {
-
-  const [parsedData, setParsedData] = useState([]);
+  
+  const [parsedData, setParsedData] = useState(
+    JSON.parse(localStorage.getItem('parsedData')) || []
+    // aqui ele está pegando a chave que está no HandleFile.jsx e
+  );
+  const { saveFile, setSaveFile } = useContext(UserContext);
   const [cadaData, setCadaData] = useState([]);
   const [todosOsValores, setTodosOsValores] = useState([]);
   const [valoresNegativos, setValoresNegativos] = useState([]);
   const [valoresPositivos, setValoresPositivos] = useState([]);
-  const handleFileChange = (event) => {
-    Papa.parse(event.target.files[0], {
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-        setParsedData(results.data);
-      },
-    });
-  };
 
   useEffect(() => {
     const formatarDatas = () => {
@@ -38,15 +35,9 @@ export function Calendario() {
     
   }, [parsedData]);
 
-  const dateAteDate = (event) => {
-    const data1 = event.target.value;
-    const data2 = data1.split('/')
-    const dataFormatada = data2.reverse() .join('-') ;
-    console.log(dataFormatada);
-  };
-  var percorerOsValores = []
-  var percorerOsValoresNegativos = []
-  var percorerOsValoresPositivos = []
+  var percorerOsValores = [];
+  var percorerOsValoresNegativos = [];
+  var percorerOsValoresPositivos = [];
   useEffect(() => {
     for (let i = 0; i < parsedData.length; i++) {
       
@@ -71,7 +62,7 @@ export function Calendario() {
     const eventosCompletos = cadaData.map((data, index) => ({
       title: `R$ ${todosOsValores[index]}`,
       date: data,
-      color: todosOsValores[index] >= 0 ? '#62ca1c' : '#d62727', // Definindo a cor com base no valor
+      color: todosOsValores[index] >= 0 ? '#62ca1c' : '#d62727',
       borderColor:'black',
       
     }));
@@ -81,26 +72,20 @@ export function Calendario() {
     
   return (
     <div>
-      
-      <input
+       <input
         type="file"
         name="file"
-        onChange={handleFileChange}
+        onChange={(event) => handleFileChange(event, setParsedData, parsedData)}
         accept=".csv"
       />
        
       <FullCalendar
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        /* eventColor = '#4ab31a' */
-        /* events={cadaData.map(data => ({
-          title: 'Evento',
-          date: data,
-        }))} */
-        events={ todosEventos} 
+        events={todosEventos} 
       />
     </div>
   );
 }
 
-export default  Calendario;
+export default Calendario;

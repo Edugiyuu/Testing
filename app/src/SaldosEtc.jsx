@@ -4,7 +4,7 @@ import { UserContext } from "./UserContext";
 import { Link } from 'react-router-dom';
 import MyChatBot from './MyChatBot';
 export const SaldosEtc = () => {
-    const { valorDoSaldoReal,nomeReal} = useContext(UserContext);
+    const { valorDoSaldoReal,nomeReal,saveFile} = useContext(UserContext);
 
   return (
     <div className="verSaldoEtc">
@@ -14,6 +14,11 @@ export const SaldosEtc = () => {
       </div> 
       <div className='Saldo'>
         <h2>Seu Saldo: R${valorDoSaldoReal}</h2>
+      </div>
+      <div>
+        <p>
+          Funciona pfv: {saveFile}
+        </p>
       </div>
       <br />
       <Link className={'NavLink'} to={`/`}>Editar..</Link>

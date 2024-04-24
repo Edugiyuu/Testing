@@ -16,52 +16,56 @@ const Resumo = () => {
     });
   };
 
-  const handleDataInicioChange = (event) => {
+  const handleDataInicio = (event) => {
     setDataInicio(event.target.value);
   };
   
-  const handleDataFimChange = (event) => {
+  const handleDataFim = (event) => {
     setDataFim(event.target.value);
   };
   const calcularGastosLucros = () => {
     let total = 0;
     let lucros = 0;
     let gastos = 0;
+    let maiorLucro = 0
+    let maiorGasto = 0
+    let descDoMaiorLucro = ''
   
     for (let i = 0; i < parsedData.length; i++) {
       //NÂO TIRAR O .split("/").reverse().join("-") já que o javascript não entende que é uma data ele acha que é uma string normal
       const dataFormatada = parsedData[i].Data.split("/").reverse().join("-");
       const valor = Number(parsedData[i].Valor);
+      const descricaoFormatada = parsedData[i].Descrição;
+
   
       if (dataFormatada >= dataInicio && dataFormatada <= dataFim) {
         total += valor;
   
         if (valor >= 0) {
           lucros += valor;
+          if (valor > maiorLucro) {
+            maiorLucro = valor
+          descDoMaiorLucro = descricaoFormatada
+          }
         } else {
           gastos += valor;
+          if (valor < maiorGasto) {
+            maiorGasto = valor
+          }
         }
       }
-    }
+    };
   
     return {
       total: total,
       lucros: lucros,
-      gastos: gastos
+      gastos: gastos,
+      maiorLucro:maiorLucro,
+      maiorGasto:maiorGasto,
+      descDoMaiorLucro: descDoMaiorLucro
     };
   };
-  const calcularLucros = () => {
-    let positivo = 0
-    for (let i = 0; i < parsedData.length; i++) {
-      const dataFormatada = parsedData[i].Data.split("/").reverse().join("-");
-      if (dataFormatada >= dataInicio && dataFormatada <= dataFim) {
-        if (parsedData[i].Valor >= 0) {
-        positivo += Number(parsedData[i].Valor);
-        }
-      }
-    }
-    return positivo;
-  };
+
   const totalGastosLucros = calcularGastosLucros();
 
   return (
@@ -75,20 +79,26 @@ const Resumo = () => {
       
       <div className="inicioEfim">
         <h2>Inicio</h2>
-        <input className='inicio' type="date" value={dataInicio} onChange={handleDataInicioChange} />
+        <input className='inicio' type="date" value={dataInicio} onChange={handleDataInicio} />
         <h2>Fim</h2>
-        <input className='fim' type="date" value={dataFim} onChange={handleDataFimChange} />
+        <input className='fim' type="date" value={dataFim} onChange={handleDataFim} />
       </div>
       
-      <div>
-        <span>Total: R$ {Math.floor(totalGastosLucros.total)}</span>
-        <span>Gastos: R$ {Math.floor(totalGastosLucros.gastos)}</span>
-        <span>Lucros: R$ {Math.floor(totalGastosLucros.lucros)} </span>
+      <div className='resumo'>
+        <p>Total: R$ {Math.floor(totalGastosLucros.total)}</p>
+    
+        <p>Gastos: R$ {Math.floor(totalGastosLucros.gastos)}</p>
+  
+        <p>Lucros: R$ {Math.floor(totalGastosLucros.lucros)} </p>
+
+        <p>Maior Lucro: R$ {Math.floor(totalGastosLucros.maiorLucro)}</p>
+        <p>Descrição do Maior Lucro: R$ {Math.floor(totalGastosLucros.descDoMaiorLucro)}</p>
+        
+        <p>Maior Gasto: R$ {Math.floor(totalGastosLucros.maiorGasto)}</p>
+        
     </div>
+    <button onClick={() => generatePDF(/* recuperarConteudoParaPDF, personalizacao, */)}>Gerar PDF</button>
 
-
-      
-      
     </div>
   );
 }

@@ -69,7 +69,6 @@ const VerArquivo = () => {
 
   return (
     <div>
-      {/* File Uploader */}
       <input
         type="file"
         name="file"
@@ -93,7 +92,7 @@ const VerArquivo = () => {
           </tr>
         </thead>
         <tbody>
-          {/* Valor da Coluna */}
+          {/* valor da Coluna */}
           {valoresJuntosArray.map((valor, index) => {
             return (
               <tr key={index}>

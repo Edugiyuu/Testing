@@ -54,7 +54,7 @@ const MyChatBot = () => {
   const flow = {
     start: {
       message: "Ei! Alguma duvida de como usar o CSV to see?",
-      options: ["Graficos..", "Csv..", "Calendario..","Ver Arquivo.."],
+      options: ["Graficos..", "Csv..", "Calendario..","Ver Arquivo..",'Resumo..'],
       path: "process_options"
     },
     process_options: {
@@ -72,6 +72,9 @@ const MyChatBot = () => {
               
           case "Ver Arquivo..":
             return "Em ver arquivo, é possivel ver seu arquivo CSV, de forma simples e um tanto organizada com colunas adicionas";
+
+          case "Resumo..":
+            return "No Resumo você pode colocar uma data inicial até uma data final e com isso durante esse periodo, você pode ver os gastos,lucro,total etc.. E gerar um PDF disso";
             
           default:
               return "unknown_input";
@@ -83,7 +86,7 @@ const MyChatBot = () => {
     },
      loop: {
       message: "Mais Alguma duvida?",
-      options: ["Graficos..", "Csv..", "Calendario..","Ver Arquivo.."],
+      options: ["Graficos..", "Csv..", "Calendario..","Ver Arquivo..",'Resumo..'],
       path: "process_options"
     }, 
   }
