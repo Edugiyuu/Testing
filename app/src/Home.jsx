@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "./UserContext";
-import Download from "./Download";
+import { UserContext } from "./Hooks/UserContext";
 import handleFileChange from './HandleFile';
 export const Home = () => {
   const [parsedData, setParsedData] = useState(
@@ -21,13 +20,16 @@ export const Home = () => {
     setNome(nomeDigitado);
   };
 
-  const SalvarSaldo = () => {
+  const SalvarNomeESaldo = () => {
     setValorDoSaldoReal(valorDoSaldo);
     setNomeReal(nome)
   };
   const limparDadosLocalStorage = () => {
     localStorage.removeItem('parsedData');
-    setParsedData([]); 
+    setParsedData([]);
+    setValorDoSaldoReal(0);
+    setNomeReal('')
+
   };
   return (
     <div>
@@ -53,7 +55,7 @@ export const Home = () => {
       />
       {/* <h1>{usuario}</h1>  */}
       
-      <button onClick={SalvarSaldo}>
+      <button onClick={SalvarNomeESaldo}>
         Save
       </button>
       <button onClick={limparDadosLocalStorage}>Limpar Dados</button>

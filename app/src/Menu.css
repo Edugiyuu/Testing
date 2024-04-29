@@ -1,0 +1,81 @@
+.MenuBar{
+    margin-top: 20px;
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    border: 4px solid #5f50ff;
+  
+    background-color: rgb(255, 255, 255);
+  }
+  .logo{
+  
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .NavLink{
+    color: rgb(0, 0, 0); 
+   
+    border-radius: 5px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  .NavLink:hover{
+    
+    /* border: 1px solid #8278f5;
+    
+    border-radius: 5px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    */
+    color: #8278f5;
+    transition:100ms;
+  }
+  .NavLink :active{
+    
+    border: 3px solid #5f50ff;
+    color: rgb(0, 0, 0); 
+    border-radius: 5px;
+    padding: 10px;
+    
+    transition:100ms;
+  }
+  .Menu img{
+    margin-left: 15%;
+    border: 2px solid #5f50ff;
+    
+    
+  }
+  .Menu img:hover{
+    font-weight: bold;
+    
+   
+    border: 2px solid #5f50ff;
+    box-shadow: 3px 3px lightblue;
+    transition:100ms;
+  }
+  .Menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinha os itens no canto esquerdo */
+    justify-content: flex-start; /* Alinha o conteúdo no topo */
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    left: 0px;
+
+    gap: 30px;
+   
+    border-right: 1px solid rgb(221, 221, 221);
+    padding: 5px;
+    /* padding-right: 40px; */
+    padding-right: 30px;
+   
+    background-color: rgb(255, 255, 255);
+}
+
+@media screen {
+  
+}

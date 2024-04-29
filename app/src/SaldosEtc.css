@@ -1,0 +1,37 @@
+.verSaldoEtc {
+  padding: 10px;
+  position:absolute;
+  margin-top: 5px;
+  left: 15%;
+  z-index: 9;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(221, 221, 221);
+  width: 20%;
+  height:70%;
+  border-radius: 3px;
+  transform: translateX(-70px);
+  animation: animeLeft 0.4s forwards;
+}
+.Saldo {
+  display: flex;
+  font-size: small;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #5f50ff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 5px 5px lightblue;
+  width: auto; 
+  height: auto; 
+}
+
+ 
+ .Saldo:hover{
+  h1{
+    color: #9c32ff;
+    transition: 200ms;
+  }
+  
+
+ }

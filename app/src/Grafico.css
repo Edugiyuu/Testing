@@ -1,0 +1,14 @@
+.primeiroGrafico, .segundoGrafico, .pieGrafico{
+
+  margin-top: 50px;
+}
+
+.TodosOsGraficos{
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinha os itens no canto esquerdo */
+  justify-content: flex-end; /* Alinha o conteúdo no topo */
+  margin-left: 12%;
+  
+}

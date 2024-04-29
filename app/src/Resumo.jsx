@@ -2,19 +2,12 @@ import React, { useState } from 'react';
 import Papa from "papaparse";
 
 const Resumo = () => {
-  const [parsedData, setParsedData] = useState([]);
+  const [parsedData, setParsedData] = useState(
+    JSON.parse(localStorage.getItem('parsedData'))
+    // aqui ele está pegando a chave que está no HandleFile.jsx e
+  );
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
-
-  const handleFileChange = (event) => {
-    Papa.parse(event.target.files[0], {
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-        setParsedData(results.data);
-      },
-    });
-  };
 
   const handleDataInicio = (event) => {
     setDataInicio(event.target.value);
@@ -70,12 +63,7 @@ const Resumo = () => {
 
   return (
     <div>
-      <input
-        type="file"
-        name="file"
-        onChange={handleFileChange}
-        accept=".csv"
-      />
+      
       
       <div className="inicioEfim">
         <h2>Inicio</h2>

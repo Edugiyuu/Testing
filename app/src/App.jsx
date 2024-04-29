@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import '../public/style.css';
-import Grafico from './grafico';
+import Grafico from './Components/grafico';
 import Home from './Home';
-import Menu from "./Menu";
+import Menu from "./Components/Menu";
 import "./app.css";
-import VerArquivo from "./VerArquivo";
-import Calendario from "./Calendario";
-import { UserStorage } from "./UserContext";
-import { SaldosEtc } from "./SaldosEtc";
+import VerArquivo from "./Components/VerArquivo";
+import Calendario from "./Components/Calendario";
+import { UserStorage } from "./Hooks/UserContext";
+import { SaldosEtc } from "./Components/SaldosEtc";
 import Resumo from "./Resumo";
 
 const App = () => {
