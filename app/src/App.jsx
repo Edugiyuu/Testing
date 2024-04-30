@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import '../public/style.css';
 import Grafico from './Components/grafico';
-import Home from './Home';
+import Home from './Components/Home';
 import Menu from "./Components/Menu";
 import "./app.css";
 import VerArquivo from "./Components/VerArquivo";

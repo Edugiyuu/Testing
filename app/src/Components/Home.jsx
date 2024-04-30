@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "./Hooks/UserContext";
-import handleFileChange from './HandleFile';
+import { UserContext } from "../Hooks/UserContext";
+import handleFileChange from '../HandleFile';
+import "../Home.css";
 export const Home = () => {
   const [parsedData, setParsedData] = useState(
     JSON.parse(localStorage.getItem('parsedData')) || []
     // aqui ele está pegando a chave que está no HandleFile.jsx e
   );
-  const { nomeReal, setNomeReal } = useContext(UserContext);
-  const { valorDoSaldoReal, setValorDoSaldoReal } = useContext(UserContext); 
+  const { valorDoSaldoReal, setValorDoSaldoReal, nomeReal, setNomeReal } = useContext(UserContext);
   const [valorDoSaldo, setValorDoSaldo] = useState(0); 
   const [nome, setNome] = useState('');
 
@@ -32,7 +32,28 @@ export const Home = () => {
 
   };
   return (
-    <div>
+    <div className="TudoHome">
+      <h1>Bem-vindo {nomeReal}!</h1>
+      <div className="InfoGeral">
+      
+        <div className="InfoSaldo">
+          <p>Saldo Total</p>
+          <h2>R$ {valorDoSaldoReal}</h2>
+        </div>
+        <div className="InfoGastos">
+          <p>Gastos Totais</p>
+          <h2>R$ 0</h2>
+        </div>
+        <div className="InfoGastos">
+          <p>Gastos Totais</p>
+          <h2>R$ 0</h2>
+        </div>
+        <div className="InfoGastos">
+          <p>Gastos Totais</p>
+          <h2>R$ 0</h2>
+        </div>
+      </div>
+      
       <input
         type="file"
         name="file"
@@ -53,7 +74,6 @@ export const Home = () => {
         required
         placeholder="Coloque seu saldo atual.."
       />
-      {/* <h1>{usuario}</h1>  */}
       
       <button onClick={SalvarNomeESaldo}>
         Save

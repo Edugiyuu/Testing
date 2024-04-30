@@ -1,0 +1,57 @@
+
+.TudoHome{
+  
+  margin-left: 160px;
+
+}
+
+.TudoHome h1{
+  padding-left: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-left: 0px;
+
+}
+.InfoGeral{
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: flex-start; 
+  gap: 15px;
+ /*  border: 1px solid red; */
+}
+.InfoSaldo{
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  border-radius: 15px;
+  background-color: rgb(48, 77, 175);
+  margin: 10px;
+  padding: 10px;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #3f0ecc 100%);
+  color: white;
+  box-shadow: 1px 1px 40px rgb(212, 212, 212);
+
+}
+.InfoGastos{
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255);
+  margin: 10px;
+  padding: 10px;
+  
+ 
+
+  color: rgb(0, 0, 0);
+  box-shadow: 1px 1px 1px rgb(228, 228, 228);
+}
+.InfoSaldo p, .InfoGastos p{
+  background-color: #8bc5ec00;
+  display: flex;
+  flex-direction: row;
+
+}
