@@ -67,9 +67,9 @@ const Resumo = () => {
       
       <div className="inicioEfim">
         <h2>Inicio</h2>
-        <input className='inicio' type="date" value={dataInicio} onChange={handleDataInicio} />
+        <input className='inicio' type="month"value={dataInicio} onChange={handleDataInicio} />
         <h2>Fim</h2>
-        <input className='fim' type="date" value={dataFim} onChange={handleDataFim} />
+        <input className='fim' type="month" value={dataFim} onChange={handleDataFim} />
       </div>
       
       <div className='resumo'>

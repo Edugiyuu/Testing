@@ -9,7 +9,7 @@ import VerArquivo from "./Components/VerArquivo";
 import Calendario from "./Components/Calendario";
 import { UserStorage } from "./Hooks/UserContext";
 import { SaldosEtc } from "./Components/SaldosEtc";
-import Resumo from "./Resumo";
+import Resumo from "./Components/Resumo";
 
 const App = () => {
 

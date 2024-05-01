@@ -32,44 +32,6 @@ const personalizacao = {
     // aqui ele está pegando a chave que está no HandleFile.jsx e
   );
       
-  const [colunasDaTabela, setColunasDaTabela] = useState([]);
-  //State to store the values
-  const [values, setValues] = useState([]);
-  const [buttonLoaded, setButtonLoaded] = useState(false);
-
-  const handleFileChange = (event) => {
-    console.log(event.target.files[0])
-    /* const primeiraPlanilha = event.target.files[0];
-    console.log(primeiraPlanilha); */
-     // Passing file data (event.target.files[0]) to parse using Papa.parse
-    Papa.parse(event.target.files[0], {
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-              
-        setParsedData(results.data);     
-      },
-      
-    });
-      const rowsArray = [];
-        const valuesArray = [];
-
-        // Iterating data to get column name and their values
-        results.data.map((d) => {
-          rowsArray.push(Object.keys(d));
-          valuesArray.push(Object.values(d));
-          
-        });
-        setButtonLoaded(true);
-        // Parsed Data Response in array format
-        setParsedData(results.data);
-
-        // Filtered Column Names
-        setColunasDaTabela(rowsArray[0]);
-
-        // Filtered Values
-        setValues(valuesArray);
-  };
  
 
       console.log(parsedData);
