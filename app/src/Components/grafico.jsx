@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useContext} from 'react';
 import Papa from "papaparse";
 import generatePDF, { Margin } from 'react-to-pdf';
@@ -28,7 +27,7 @@ const personalizacao = {
   
   const { valorDoSaldoReal,nomeReal} = useContext(UserContext);
   const [parsedData, setParsedData] = useState(
-    JSON.parse(localStorage.getItem('parsedData'))
+    JSON.parse(localStorage.getItem('parsedData')) || []
     // aqui ele está pegando a chave que está no HandleFile.jsx e
   );
       
@@ -128,6 +127,8 @@ const personalizacao = {
         name: "Total Final",total4: Math.floor(totalFinal),
         name: "Saldo Atual",total5: Math.floor(Number(valorDoSaldoReal) + totalFinal),
         }]
+        
+        localStorage.setItem('SaldoDepois',Math.floor(Number(valorDoSaldoReal) + totalFinal))
         const data = [
           { name: 'Total Gasto', value: Math.abs(totalDeGastos), fill: '#cc2020' },
             { name: 'Total Esperado', value: valorColocado, fill: '#8b33ff' },  

@@ -10,6 +10,7 @@ import Calendario from "./Components/Calendario";
 import { UserStorage } from "./Hooks/UserContext";
 import { SaldosEtc } from "./Components/SaldosEtc";
 import Resumo from "./Components/Resumo";
+import GiveInfos from "./Components/GiveInfos";
 
 const App = () => {
 
@@ -25,6 +26,7 @@ const App = () => {
       <Route path="grafico/" element={<Grafico />}/>
       <Route path="calendario/" element={<Calendario />}/>
       <Route path="resumo/" element={<Resumo />}/>
+      <Route path="editar/" element={<GiveInfos />}/>
       
     
      {/*  <Route path="*" element={<Pagina404 />}/> */}

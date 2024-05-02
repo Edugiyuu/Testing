@@ -23,6 +23,7 @@ const Menu = () => {
         <NavLink className={'NavLink'} to={`/grafico/`}>Gráficos</NavLink>
         <NavLink className={'NavLink'} to={`/calendario/`}>Calendario</NavLink>
         <NavLink className={'NavLink'} to={`/resumo/`}>Resumo</NavLink>
+        <NavLink className={'NavLink'} to={`/editar/`}>Editar</NavLink>
         <img src={MenuBar} alt="Logo" className="MenuBar" onClick={toggleBlockVisibility} />
       </div>
       

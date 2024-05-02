@@ -9,7 +9,7 @@ import "../Calendario.css";
 export function Calendario() {
   
   const [parsedData, setParsedData] = useState(
-    JSON.parse(localStorage.getItem('parsedData'))
+    JSON.parse(localStorage.getItem('parsedData')) || []
     // aqui ele está pegando a chave que está no HandleFile.jsx e
   );
   const [cadaData, setCadaData] = useState([]);
