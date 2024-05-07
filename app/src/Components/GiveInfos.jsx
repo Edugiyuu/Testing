@@ -7,44 +7,28 @@ export const GiveInfos = () => {
     JSON.parse(localStorage.getItem('parsedData')) || []
     // aqui ele está pegando a chave que está no HandleFile.jsx e
   );
-  const { valorDoSaldoReal, setValorDoSaldoReal, nomeReal, setNomeReal } = useContext(UserContext);
-  const [valorDoSaldo, setValorDoSaldo] = useState(0); 
-  const [nome, setNome] = useState('');
-  const [contadorDeTransacao, setContadorDeTransacao] = useState(0);
-  const [totalDeGastos, setTotalDeGastos] = useState(0);
-  const [totalDeLucros, setTotalDeLucros] = useState(0);
-
-  const InputSaldo = (event) => {
-    const valorDigitado = event.target.value;
-    setValorDoSaldo(valorDigitado);
-    localStorage.setItem('Saldo', valorDigitado)
-  };
-  const InputNome = (event) => {
-    const nomeDigitado = event.target.value;
-    setNome(nomeDigitado);
-    localStorage.setItem('Nome', nomeDigitado)
-  };
-
-  const SalvarNomeESaldo = () => {
-    setValorDoSaldoReal(valorDoSaldo);
-    setNomeReal(nome)
-
-  };
+  const { saldo, setSaldo, nome, setNome } = useContext(UserContext);
+  const [novoSaldo, setNovoSaldo] = useState(saldo); 
+  const [novoNome, setNovoNome] = useState(nome); 
   
-  const limparDadosLocalStorage = () => {
-    localStorage.removeItem('parsedData');
-    setParsedData([]);
-    setValorDoSaldoReal(0);
-    setNomeReal('')
-    localStorage.setItem('Nome', nomeReal)
-    localStorage.setItem('Saldo', valorDoSaldoReal)
-    localStorage.setItem('contador', 0)
-    localStorage.setItem('SaldoDepois',0)
-    localStorage.setItem('totalGastos',0)
-    localStorage.setItem('totalLucros',0)
-
+  const handleSaldoChange = (event) => {
+    const novoValor = event.target.value;
+    setNovoSaldo(novoValor);
   };
-  
+
+  const handleNomeChange = (event) => {
+    const novoNome = event.target.value;
+    setNovoNome(novoNome);
+  };
+
+  const salvarNovoSaldoENome = () => {
+    setSaldo(novoSaldo);
+    setNome(novoNome);
+  };
+  const limparDados = () => {
+    setSaldo(0);
+    setNome('');
+  };
   
   return (
     <div className="TudoHome">
@@ -52,29 +36,30 @@ export const GiveInfos = () => {
       <input
         type="file"
         name="file"
-        onChange={(event) => handleFileChange(event, setParsedData, parsedData,setContadorDeTransacao,setTotalDeGastos,setTotalDeLucros)}
+        onChange={(event) => handleFileChange(event, setParsedData, parsedData)}
         accept=".csv"
+      />
+      <input
+        type="number"
+        onChange={handleSaldoChange}
+        value={novoSaldo}
+        placeholder="Informe seu novo saldo"
       />
       
       <input
         type="text"
-        required
-       onChange={InputNome}
-        placeholder="Seu Nome aqui.."
-        
+        onChange={handleNomeChange}
+        value={novoNome}
+        placeholder="Informe seu novo nome"
       />
-      <input
-        type="number"
-        onChange={InputSaldo}
-        required
-        placeholder="Coloque seu saldo atual.."
-      />
-      
-      <button onClick={SalvarNomeESaldo}>
-        Save
+      <button onClick={salvarNovoSaldoENome}>
+        Salvar Dados
       </button>
-      <button onClick={limparDadosLocalStorage}>Limpar Dados</button>
+      <button onClick={limparDados}>
+        Limpar Dados
+      </button>
     </div>
+    
   );
 };
 

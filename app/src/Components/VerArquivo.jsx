@@ -1,12 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState,useContext} from 'react';
 import Papa from "papaparse";
 import XLSX from 'xlsx'
 import { LineChart, Line } from 'recharts';
 import "../VerArquivo.css";
+import { UserContext } from '../Hooks/UserContext';
 const VerArquivo = () => {
   
-
+  const {saldo, setSaldo, nome, setNome } = useContext(UserContext);
   const [parsedData, setParsedData] = useState([]);
 
   const [valoresJuntosArray, setValoresJuntosArray] = useState([]);
@@ -69,6 +70,7 @@ const VerArquivo = () => {
 
   return (
     <div className='VerArquivo'>
+      <h1>{nome}</h1>
       <input
         type="file"
         name="file"
