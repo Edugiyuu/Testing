@@ -7,8 +7,7 @@ import "../VerArquivo.css";
 import { UserContext } from '../Hooks/UserContext';
 const VerArquivo = () => {
   
-  const {saldo, setSaldo, nome, setNome } = useContext(UserContext);
-  const [parsedData, setParsedData] = useState([]);
+  const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
 
   const [valoresJuntosArray, setValoresJuntosArray] = useState([]);
   const [colunasDaTabela, setColunasDaTabela] = useState([]);

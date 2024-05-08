@@ -3,11 +3,7 @@ import { UserContext } from "../Hooks/UserContext";
 import handleFileChange from '../HandleFile';
 /* import "../GiveInfos.css"; */
 export const GiveInfos = () => {
-  const [parsedData, setParsedData] = useState(
-    JSON.parse(localStorage.getItem('parsedData')) || []
-    // aqui ele está pegando a chave que está no HandleFile.jsx e
-  );
-  const { saldo, setSaldo, nome, setNome } = useContext(UserContext);
+  const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
   const [novoSaldo, setNovoSaldo] = useState(saldo); 
   const [novoNome, setNovoNome] = useState(nome); 
   
@@ -28,6 +24,8 @@ export const GiveInfos = () => {
   const limparDados = () => {
     setSaldo(0);
     setNome('');
+    setParsedData([])
+    console.log(parsedData);
   };
   
   return (

@@ -3,7 +3,8 @@ import { UserContext } from "../Hooks/UserContext";
 
 import "../Home.css";
 export const Home = () => {
-  const {saldo, setSaldo, nome, setNome } = useContext(UserContext);
+  const {saldo, setSaldo, nome, setNome,totalPositivo} = useContext(UserContext);
+ /*  window.location.reload(true); */
   return (
     <div className="TudoHome">
       <h1>Bem-vindo {nome}!</h1>
@@ -19,7 +20,7 @@ export const Home = () => {
         </div>
         <div className="InfoCreditos">
           <p>Creditos Totais</p>
-          <h2>R$ {localStorage.getItem('totalLucros')}</h2>
+          <h2>R$ {totalPositivo}</h2>
         </div>
         
         <div className="Teste">

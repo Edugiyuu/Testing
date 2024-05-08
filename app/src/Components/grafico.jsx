@@ -25,11 +25,7 @@ const personalizacao = {
  const Grafico = () => {
 
   
-  const { valorDoSaldoReal,nomeReal} = useContext(UserContext);
-  const [parsedData, setParsedData] = useState(
-    JSON.parse(localStorage.getItem('parsedData')) || []
-    // aqui ele está pegando a chave que está no HandleFile.jsx e
-  );
+  const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
       
  
 
@@ -125,16 +121,16 @@ const personalizacao = {
         name: "Total de Lucro",total2: Math.floor(totalDeLucros),
         name: "Total Es",total3: valorColocado,
         name: "Total Final",total4: Math.floor(totalFinal),
-        name: "Saldo Atual",total5: Math.floor(Number(valorDoSaldoReal) + totalFinal),
+        name: "Saldo Atual",total5: Math.floor(Number(saldo) + totalFinal),
         }]
         
-        localStorage.setItem('SaldoDepois',Math.floor(Number(valorDoSaldoReal) + totalFinal))
+        localStorage.setItem('SaldoDepois',Math.floor(Number(saldo) + totalFinal))
         const data = [
           { name: 'Total Gasto', value: Math.abs(totalDeGastos), fill: '#cc2020' },
             { name: 'Total Esperado', value: valorColocado, fill: '#8b33ff' },  
           { name: 'Total De Lucro', value: totalDeLucros, fill: '#48e421' },
           { name: 'Total Final', value: Math.floor(totalFinal), fill: '#d2fd12' },
-          { name: 'Saldo', value: Math.floor(valorDoSaldoReal), fill: '#00c3ff' },
+          { name: 'Saldo', value: Math.floor(saldo), fill: '#00c3ff' },
         ];
       
         const gradientOffset = () => {

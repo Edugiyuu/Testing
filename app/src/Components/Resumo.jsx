@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
+import { UserContext } from '../Hooks/UserContext';
 import Papa from "papaparse";
 
 const Resumo = () => {
-  const [parsedData, setParsedData] = useState(
-    JSON.parse(localStorage.getItem('parsedData'))
-    // aqui ele está pegando a chave que está no HandleFile.jsx e
-  );
+  const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
 
