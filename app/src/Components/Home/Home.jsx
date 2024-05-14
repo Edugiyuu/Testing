@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "../Hooks/UserContext";
+import { UserContext } from "../../Hooks/UserContext";
 
-import "../Home.css";
+import "../Home/Home.css";
 export const Home = () => {
-  const {saldo, setSaldo, nome, setNome,totalPositivo} = useContext(UserContext);
+  const {saldo,nome,totalPositivo,totalNegativo,totalFinal} = useContext(UserContext);
  /*  window.location.reload(true); */
   return (
     <div className="TudoHome">
@@ -12,11 +12,11 @@ export const Home = () => {
       
         <div className="InfoTotal">
           <p>Total</p>
-          <h2>R$ {0}</h2>
+          <h2>R$ {totalFinal}</h2>
         </div>
         <div className="InfoGastos">
           <p>Gastos Totais</p>
-          <h2>R$ {localStorage.getItem('totalGastos')}</h2>
+          <h2>R$ {totalNegativo}</h2>
         </div>
         <div className="InfoCreditos">
           <p>Creditos Totais</p>
@@ -28,8 +28,8 @@ export const Home = () => {
           <div className="InfoSaldo">
             <p>Saldo</p>
             <div>
-              <h4>Transações: {localStorage.getItem('contador')}</h4>
-              <h4>Saldo Inicial: R$ {saldo}</h4>
+              {/* <h4>Transações: {localStorage.getItem('contador')}</h4>
+              <h4>Saldo Inicial: R$ {saldo}</h4> */}
             </div>
             
 

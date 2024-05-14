@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext} from 'react';
 import Papa from "papaparse";
 import generatePDF, { Margin } from 'react-to-pdf';
-import { UserContext } from "../Hooks/UserContext";
-import handleFileChange from '../HandleFile';
-import "../Grafico.css";
+import { UserContext } from "../../Hooks/UserContext";
+import handleFileChange from '../../HandleFile';
+import "../Grafico/Grafico.css";
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer,  } from '@react-pdf/renderer';
 
 import { CartesianGrid,Legend, Line,LineChart,Tooltip,XAxis, YAxis, BarChart,Bar,Rectangle ,ResponsiveContainer, ReferenceLine,AreaChart,Area,PieChart,Pie, RadialBarChart,RadialBar} from "recharts";

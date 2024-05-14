@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect,useContext } from 'react';
-import { UserContext } from "../Hooks/UserContext";
+import { UserContext } from "../../Hooks/UserContext";
 import { Link } from 'react-router-dom';
-import MyChatBot from '../MyChatBot';
-import "../SaldosEtc.css";
+import MyChatBot from './MyChatBot';
+import "../ChatBot/CaixaDoChatBot.css";
 export const SaldosEtc = () => {
   const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
 

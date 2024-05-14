@@ -21,16 +21,17 @@ export const GiveInfos = () => {
     setSaldo(novoSaldo);
     setNome(novoNome);
   };
+
   const limparDados = () => {
     setSaldo(0);
     setNome('');
     setParsedData([])
     console.log(parsedData);
   };
-  
+
   return (
     <div className="TudoHome">
-      
+
       <input
         type="file"
         name="file"
@@ -43,7 +44,7 @@ export const GiveInfos = () => {
         value={novoSaldo}
         placeholder="Informe seu novo saldo"
       />
-      
+
       <input
         type="text"
         onChange={handleNomeChange}
@@ -57,9 +58,8 @@ export const GiveInfos = () => {
         Limpar Dados
       </button>
     </div>
-    
+
   );
 };
-
 
 export default GiveInfos;

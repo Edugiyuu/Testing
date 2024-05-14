@@ -3,8 +3,8 @@ import React, { useState,useContext} from 'react';
 import Papa from "papaparse";
 import XLSX from 'xlsx'
 import { LineChart, Line } from 'recharts';
-import "../VerArquivo.css";
-import { UserContext } from '../Hooks/UserContext';
+import "../VerArquivo/VerArquivo.css";
+import { UserContext } from '../../Hooks/UserContext';
 const VerArquivo = () => {
   
   const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);

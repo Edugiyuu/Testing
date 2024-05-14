@@ -1,7 +1,7 @@
 import React from "react";
 import ChatBot from "react-chatbotify";
 import "react-chatbotify/dist/react-chatbotify.css";
-import assistente from './imgs/image.png'
+import assistente from '../../imgs/image.png'
 
 const MyChatBot = () => {
  

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import '../public/style.css';
-import Grafico from './Components/grafico';
-import Home from './Components/Home';
-import Menu from "./Components/Menu";
+import Grafico from './Components/Grafico/grafico';
+import Home from './Components/Home/Home';
+import Menu from "./Components/SideMenu/Menu";
 import "./app.css";
-import VerArquivo from "./Components/VerArquivo";
-import Calendario from "./Components/Calendario";
+import VerArquivo from "./Components/VerArquivo/VerArquivo";
+import Calendario from "./Components/Calendario/Calendario";
 import { UserStorage } from "./Hooks/UserContext";
-import { SaldosEtc } from "./Components/SaldosEtc";
-import Resumo from "./Components/Resumo";
+import { SaldosEtc } from "./Components/ChatBot/CaixaDoChatBot";
+import Resumo from "./Components/Resumo/Resumo";
 import GiveInfos from "./Components/GiveInfos";
 
 const App = () => {

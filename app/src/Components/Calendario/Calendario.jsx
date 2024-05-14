@@ -1,10 +1,10 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import Papa from "papaparse";
-import handleFileChange from '../HandleFile';
+import handleFileChange from '../../HandleFile';
 import React, { useState, useEffect, useContext } from 'react';
 import multiMonthPlugin from '@fullcalendar/multimonth'
-import "../Calendario.css";
+import "../Calendario/Calendario.css";
 
 export function Calendario() {
   

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
-import Csvconverter from '../imgs/CSVconverter1.png';
-import MenuBar from '../imgs/menu-aberto.png';
-import { SaldosEtc } from "./SaldosEtc";
-import "../Menu.css";
+import Csvconverter from '../../imgs/CSVconverter1.png';
+import MenuBar from '../../imgs/menu-aberto.png';
+import { SaldosEtc } from "../ChatBot/CaixaDoChatBot";
+import "../SideMenu/Menu.css";
 
 const Menu = () => {
   const [blockVisible, setBlockVisible] = useState(false);
