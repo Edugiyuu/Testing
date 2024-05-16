@@ -13,7 +13,19 @@ import Resumo from "./Components/Resumo/Resumo";
 import GiveInfos from "./Components/GiveInfos";
 
 const App = () => {
+  const [data, setData] = useState(null);
 
+useEffect(() => {
+  fetch("http://localhost:3001/api")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setData(data.message);
+    })
+    .catch((error) => {
+      console.error("Erro ao acessar a API:", error);
+    });
+}, []);
   return (
     
     <BrowserRouter >
@@ -28,14 +40,12 @@ const App = () => {
       <Route path="resumo/" element={<Resumo />}/>
       <Route path="editar/" element={<GiveInfos />}/>
       
-    
      {/*  <Route path="*" element={<Pagina404 />}/> */}
       
     </Routes>
     </UserStorage>
     </BrowserRouter>
       
-    
   );
 };
 

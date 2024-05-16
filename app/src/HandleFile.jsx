@@ -24,18 +24,34 @@ import Papa from 'papaparse';
 }; */
 
  // tem como fazer com o for tambem só que com o concat é melhor
-const handleFileChange = (event, setParsedData, parsedData) => {
+ const handleFileChange = (event, setParsedData, parsedData) => {
   Papa.parse(event.target.files[0], {
     header: true,
     skipEmptyLines: true,
     complete: function (results) {
+      const parsedDataArray = [];
       for (let i = 0; i < results.data.length; i++) {
-        parsedData.push(results.data[i]);
+        parsedDataArray.push(results.data[i]);
       }
 
-      setParsedData(parsedData);
-      localStorage.setItem('parsedData', JSON.stringify(parsedData));
-      console.log(parsedData);
+      fetch("http://localhost:3001/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(parsedDataArray), 
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      // Atualizar o estado e exibir no console
+      setParsedData(parsedDataArray);
+      console.log(parsedDataArray);
     },
   });
 };

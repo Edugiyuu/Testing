@@ -5,6 +5,7 @@ import handleFileChange from '../../HandleFile';
 import React, { useState, useEffect, useContext } from 'react';
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import "../Calendario/Calendario.css";
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 
 export function Calendario() {
   
@@ -64,7 +65,23 @@ export function Calendario() {
       ...eventosCompletos,
     ];
     console.log(parsedData);
+    useEffect(() => {
     
+      const containerEl = document.getElementById('external-events');
+      new Draggable(containerEl, {
+        itemSelector: '.fc-event',
+        eventData: function(eventEl) {
+          return {
+            title: eventEl.innerText
+          };
+        }
+      });
+    }, []);
+    const [anotacao, setAnotacao] = useState('');
+
+  const handleAnotacaoChange = (event) => {
+    setAnotacao(event.target.value);
+  };
   return (
     <div className="Calendario">
        {/* <input
@@ -73,9 +90,26 @@ export function Calendario() {
         onChange={(event) => handleFileChange(event, setParsedData, parsedData)}
         accept=".csv"
       /> */}
+      <div>
+      <input
+        type="text"
+        onChange={handleAnotacaoChange}
+        value={anotacao}
+        placeholder="Coloque uma anotação"
+      />
+      </div>
+      
+       <div id='external-events'>
+    
+        <div className='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+          <div className='fc-event-main'>{anotacao}</div>
+        </div>
+      </div>
        
       <FullCalendar
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, interactionPlugin ]}
+       
+        droppable = {true }
         initialView="dayGridMonth"
         events={todosEventos}
         contentHeight={600}

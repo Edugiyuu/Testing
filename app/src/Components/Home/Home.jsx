@@ -36,9 +36,9 @@ export const Home = () => {
           </div>
           
         </div>
-        <div className="InfoGrafico">
+        {/* <div className="InfoGrafico">
           Grafico:
-        </div>
+        </div> */}
 
       </div>
       
