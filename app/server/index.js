@@ -8,22 +8,18 @@ const app = express();
 app.use(cors({
   origin: '*'
 }));
+app.use(bodyParser.json());
 
-/* app.use(bodyParser.json()); */
+let arquivoCsv = [];
 
 app.get("/api", (req, res) => {
-  res.json({
-    Data: '',
-    Valor: '',
-    Descrição: ''
-  });
-  
+  res.json(arquivoCsv);
 });
 
 app.post("/api", (req, res) => {
-  const data = req.body; 
-  console.log(data);
-  res.json({ message: "Teste" });
+  const novoArquivoCsv = req.body;
+  arquivoCsv.push(novoArquivoCsv);
+  res.send({ message: "Teste" });
 });
 
 app.listen(PORT, () => {

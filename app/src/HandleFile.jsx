@@ -49,7 +49,6 @@ import Papa from 'papaparse';
         console.error(error);
       });
 
-      // Atualizar o estado e exibir no console
       setParsedData(parsedDataArray);
       console.log(parsedDataArray);
     },
