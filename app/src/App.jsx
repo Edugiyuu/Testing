@@ -15,17 +15,24 @@ import GiveInfos from "./Components/GiveInfos";
 const App = () => {
   const [data, setData] = useState(null);
 
-useEffect(() => {
+/* useEffect(() => {
   fetch("http://localhost:3001/api")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      setData(data.message);
+      //dados da api
+      //pega o primeiro arquivo
+      console.log("Todos os arquvios",data);
+      console.log("primeiro arquivo",data[0]);
+      console.log("primeiro valor do primeiro arquivo",data[0][0].Valor);
+      setData(data);
     })
     .catch((error) => {
-      console.error("Erro ao acessar a API:", error);
+      console.error(error);
     });
 }, []);
+ */
+/* console.log(data); */
+
   return (
     
     <BrowserRouter >

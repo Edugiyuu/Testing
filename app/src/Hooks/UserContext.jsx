@@ -8,60 +8,48 @@ export const UserStorage = ({ children }) => {
   const [totalPositivo, setTotalPositivo] = useState(0);
   const [totalNegativo, setTotalNegativo] = useState(0);
   const [totalFinal, setTotalFinal] = useState(0);
-  const [parsedData, setParsedData] = useState(
-    JSON.parse(localStorage.getItem('parsedData')) || []
-  );
-  
-  useEffect(() => {
-    const saldoDoLocalStorage = localStorage.getItem('saldo');
-    const nomeDoLocalStorage = localStorage.getItem('nome');
-
-    let totalPositivo = 0;
-    let totalNegativo = 0;
-    let totalFinal = 0;
-    
-
-    for (let i = 0; i < parsedData.length; i++) {
-      if (parsedData[i].Valor > 0) {
-        totalPositivo += Number(parsedData[i].Valor);
-        totalFinal += Number(parsedData[i].Valor)
-      }else{
-        totalNegativo += Number(parsedData[i].Valor)
-        totalFinal += Number(parsedData[i].Valor)
-      }
-    }
-
-    if (saldoDoLocalStorage) {
-      setSaldo(Number(saldoDoLocalStorage));
-    }
-    
-    if (nomeDoLocalStorage) {
-      setNome(nomeDoLocalStorage);
-    }
-
-    setTotalPositivo(Math.floor(totalPositivo));
-    setTotalNegativo(Math.floor(totalNegativo))
-    setTotalFinal(Math.floor(totalFinal) )
-    
-  }, [parsedData]);
+  const [parsedData, setParsedData] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem('saldo', saldo.toString());
-  }, [saldo]);
+    fetch("http://localhost:3001/api")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Todos os arquivos", data);
+        console.log("primeiro arquivo", data[0]);
+        console.log("primeiro valor do primeiro arquivo", data[0][0].Valor);
 
- useEffect(() => {
-    localStorage.setItem('totalPositivo', totalPositivo);
-    localStorage.setItem('totalFinal', totalFinal);
-  }, [totalPositivo]);
+        
+        var todosOsArquivosJuntos = [];
+        for (let i = 0; i < data.length; i++) {
+          todosOsArquivosJuntos = todosOsArquivosJuntos.concat(data[i]);
+        }
+     console.log(todosOsArquivosJuntos);
+        setParsedData(todosOsArquivosJuntos);
+        
+        let totalPositivo = 0;
+        let totalNegativo = 0;
+        let totalFinal = 0;
 
-  useEffect(() => {
-    localStorage.setItem('totalNegativo', totalNegativo);
-  }, [totalNegativo]);
+        for (let i = 0; i < todosOsArquivosJuntos.length; i++) {
+          //aqui ele vai pegar todos os valores que estão juntos
+          const valor = Number(todosOsArquivosJuntos[i].Valor);
+          /* console.log(valor); */
+          if (valor > 0) {
+            totalPositivo += valor
+          } else {
+            totalNegativo += valor
+          }
+          totalFinal += valor
+        }
 
-  
-  useEffect(() => {
-    localStorage.setItem('nome', nome);
-  }, [nome]);
+        setTotalPositivo(Math.floor(totalPositivo));
+        setTotalNegativo(Math.floor(totalNegativo));
+        setTotalFinal(Math.floor(totalFinal) );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <UserContext.Provider value={{ saldo, setSaldo, nome, setNome,parsedData, setParsedData, totalPositivo, setTotalPositivo, totalNegativo, setTotalNegativo,totalFinal, setTotalFinal}}>
