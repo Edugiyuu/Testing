@@ -5,14 +5,12 @@ import handleFileChange from '../../HandleFile';
 import React, { useState, useEffect, useContext } from 'react';
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import "../Calendario/Calendario.css";
+import { UserContext } from "../../Hooks/UserContext";
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 
 export function Calendario() {
-  
-  const [parsedData, setParsedData] = useState(
-    JSON.parse(localStorage.getItem('parsedData')) || []
-    // aqui ele está pegando a chave que está no HandleFile.jsx e
-  );
+  const {saldo,nome,parsedData,totalPositivo,totalNegativo,totalFinal} = useContext(UserContext);
+ 
   const [cadaData, setCadaData] = useState([]);
   const [todosOsValores, setTodosOsValores] = useState([]);
   const [valoresNegativos, setValoresNegativos] = useState([]);

@@ -1,4 +1,5 @@
 import Papa from 'papaparse';
+import { useEffect } from 'react';
 /*  const handleFileChange = (event, setParsedData) => {
   Papa.parse(event.target.files[0], {
     header: true,
@@ -33,7 +34,6 @@ import Papa from 'papaparse';
       for (let i = 0; i < results.data.length; i++) {
         parsedDataArray.push(results.data[i]);
       }
-
       fetch("http://localhost:3001/api", {
         method: "POST",
         headers: {
@@ -51,6 +51,9 @@ import Papa from 'papaparse';
 
       setParsedData(parsedDataArray);
       console.log(parsedDataArray);
+
+      //recarregar a pagina já que as informaçoes só atualizam se atualizar a pagina..
+      //location.reload();
     },
   });
 };

@@ -9,11 +9,13 @@ export const UserStorage = ({ children }) => {
   const [totalNegativo, setTotalNegativo] = useState(0);
   const [totalFinal, setTotalFinal] = useState(0);
   const [parsedData, setParsedData] = useState([]);
+  
 
   useEffect(() => {
     fetch("http://localhost:3001/api")
       .then((res) => res.json())
       .then((data) => {
+        //O data é o que tem dentro da api que está no index.js no server que no caso é o let arquivoCsv = [];
         console.log("Todos os arquivos", data);
         console.log("primeiro arquivo", data[0]);
         console.log("primeiro valor do primeiro arquivo", data[0][0].Valor);
@@ -22,6 +24,7 @@ export const UserStorage = ({ children }) => {
         var todosOsArquivosJuntos = [];
         for (let i = 0; i < data.length; i++) {
           todosOsArquivosJuntos = todosOsArquivosJuntos.concat(data[i]);
+         /*  todosOsArquivosJuntos =todosOsArquivosJuntos.conca */
         }
      console.log(todosOsArquivosJuntos);
         setParsedData(todosOsArquivosJuntos);
