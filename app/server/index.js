@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 let arquivoCsv = [];
 
 app.get("/api", (req, res) => {
+  // aqui ele só está transformando em json
   res.json(arquivoCsv);
 });
 
