@@ -1,5 +1,7 @@
 import Papa from 'papaparse';
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import { UserContext } from './Hooks/UserContext';
 /*  const handleFileChange = (event, setParsedData) => {
   Papa.parse(event.target.files[0], {
     header: true,
@@ -25,15 +27,14 @@ import { useEffect } from 'react';
 }; */
 
  // tem como fazer com o for tambem só que com o concat é melhor
- const handleFileChange = (event, setParsedData, parsedData) => {
+
+ const handleFileChange = (event, setArquivoCsv, arquivoCsv, atualizarTotais) => {
   Papa.parse(event.target.files[0], {
     header: true,
     skipEmptyLines: true,
     complete: function (results) {
-      const parsedDataArray = [];
-      for (let i = 0; i < results.data.length; i++) {
-        parsedDataArray.push(results.data[i]);
-      }
+      const parsedDataArray = results.data;
+
       fetch("http://localhost:3001/api", {
         method: "POST",
         headers: {
@@ -49,11 +50,14 @@ import { useEffect } from 'react';
         console.error(error);
       });
 
-      setParsedData(parsedDataArray);
-      console.log(parsedDataArray);
+      // Atualiza parsedData localmente
+      const parserDataJuntoENovo = arquivoCsv.concat(parsedDataArray);
+      console.log(parserDataJuntoENovo);
+      
+      setArquivoCsv(parserDataJuntoENovo);
 
-      //recarregar a pagina já que as informaçoes só atualizam se atualizar a pagina..
-      //location.reload();
+      // Atualiza os totais
+      atualizarTotais(parserDataJuntoENovo);
     },
   });
 };

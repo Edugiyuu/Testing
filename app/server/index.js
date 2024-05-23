@@ -29,7 +29,7 @@ app.post("/api", (req, res) => {
 
 app.delete('/api', (req, res) => { 
   arquivoCsv = [];
-  res.send("Deletado") 
+  res.send({ message: "Deletado" });
 }) 
 
 app.listen(PORT, () => {
