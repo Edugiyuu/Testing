@@ -1,0 +1,12 @@
+.CaixasDeArquivos{
+  color: rgb(0, 0, 0);
+  font-size: smaller;
+  padding: 25px;
+  border: 1px solid #5f50ff;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.Arquivos{
+  
+  margin-left: 160px;
+}

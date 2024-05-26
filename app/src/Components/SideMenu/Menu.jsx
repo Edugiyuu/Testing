@@ -19,7 +19,7 @@ const Menu = () => {
         <img src={Csvconverter} alt="Logo" className="logo" onClick={toggleBlockVisibility} />
         
         <NavLink className={'NavLink'} to={`/`}>Home</NavLink>
-        <NavLink className={'NavLink'} to={`/verArquivo/`}>Ver Arquivo</NavLink>
+        <NavLink className={'NavLink'} to={`/Arquivos/`}>Arquivos</NavLink>
         <NavLink className={'NavLink'} to={`/grafico/`}>Gráficos</NavLink>
         <NavLink className={'NavLink'} to={`/calendario/`}>Calendario</NavLink>
         <NavLink className={'NavLink'} to={`/resumo/`}>Resumo</NavLink>

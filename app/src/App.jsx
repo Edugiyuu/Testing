@@ -5,6 +5,7 @@ import Grafico from './Components/Grafico/grafico';
 import Home from './Components/Home/Home';
 import Menu from "./Components/SideMenu/Menu";
 import "./app.css";
+import Arquivos from "./Components/VerArquivo/Arquivos";
 import VerArquivo from "./Components/VerArquivo/VerArquivo";
 import Calendario from "./Components/Calendario/Calendario";
 import { UserStorage } from "./Hooks/UserContext";
@@ -42,6 +43,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="verArquivo/" element={<VerArquivo />} />
+      <Route path="Arquivos/" element={<Arquivos />} />
       <Route path="grafico/" element={<Grafico />}/>
       <Route path="calendario/" element={<Calendario />}/>
       <Route path="resumo/" element={<Resumo />}/>

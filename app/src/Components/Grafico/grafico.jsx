@@ -25,11 +25,11 @@ const personalizacao = {
  const Grafico = () => {
 
   
-  const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
+  const {saldo, setSaldo, nome, setNome,arquivoCsv, setArquivoCsv} = useContext(UserContext);
       
  
 
-      console.log(parsedData);
+      console.log(arquivoCsv);
       const [arrayDeObjetosGastos, setArrayDeObjetosGastos] = useState([]);
       const [arrayDeTodosOsNumeros, setArrayDeTodosOsNumeros] = useState([]);
       const [totalDeGastos, setTotalDeGastos] = useState(0);
@@ -51,18 +51,18 @@ const personalizacao = {
      var mesesComMaisGastos = []; 
     var menorValor = 0;
      
-    for (let i = 0; i < parsedData.length; i++) {
+    for (let i = 0; i < arquivoCsv.length; i++) {
       
-        if (parsedData[i].Valor < 0) {
-            totalMenor += +parsedData[i].Valor;
-            numeroMenor.push(parsedData[i].Valor);
-            todosOsNumeros.push(parsedData[i].Valor);
+        if (arquivoCsv[i].Valor < 0) {
+            totalMenor += +arquivoCsv[i].Valor;
+            numeroMenor.push(arquivoCsv[i].Valor);
+            todosOsNumeros.push(arquivoCsv[i].Valor);
             
-            if (parsedData[i].Valor < menorValor) {
+            if (arquivoCsv[i].Valor < menorValor) {
               
-              menorValor = Number(parsedData[i].Valor);
-              mesComMaisGasto = parsedData[i].Data;
-              var diaMesAno = parsedData[i].Data.split('/')
+              menorValor = Number(arquivoCsv[i].Valor);
+              mesComMaisGasto = arquivoCsv[i].Data;
+              var diaMesAno = arquivoCsv[i].Data.split('/')
               
               mesesComMaisGastos.push(diaMesAno[1])
 
@@ -70,14 +70,14 @@ const personalizacao = {
             } 
           
         } else {
-            totalMaior += +parsedData[i].Valor;
-            numeroMaior.push(parsedData[i].Valor);
-            todosOsNumeros.push(parsedData[i].Valor);
+            totalMaior += +arquivoCsv[i].Valor;
+            numeroMaior.push(arquivoCsv[i].Valor);
+            todosOsNumeros.push(arquivoCsv[i].Valor);
             
             
-            if (parsedData[i].Valor > maiorValor) {
-              maiorValor = Number(parsedData[i].Valor);
-              mesComMaisLucro = parsedData[i].Data; 
+            if (arquivoCsv[i].Valor > maiorValor) {
+              maiorValor = Number(arquivoCsv[i].Valor);
+              mesComMaisLucro = arquivoCsv[i].Data; 
           }
         }
     }
@@ -95,7 +95,7 @@ const personalizacao = {
         const arrayDeObjetosNegativos = numeroMenor.map(gasto => ({ gasto: parseFloat(gasto) }));
         setArrayDeObjetosGastos(arrayDeObjetosNegativos);
       
-      }, [parsedData]);
+      }, [arquivoCsv]);
       
       useEffect(() =>{
         setTotalFinal(totalDeGastos + totalDeLucros)

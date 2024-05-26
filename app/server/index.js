@@ -11,14 +11,25 @@ app.use(cors({
 app.use(bodyParser.json());
 
 //Esse arquivoCsv é o que tem vai ser enviado para a api, se mudar qualquer coisa nessa variavel vai pra lá
+// ----------------------------------- GET -----------------------------------------------
 let arquivoCsv = [];
+let Dados = {
+  'Nome':'',
+  'Email': '',
+  'Categoria':''
+};
 
-app.get("/api", (req, res) => {
+app.get("/api/arquivos", (req, res) => {
   // aqui ele só está transformando em json
   res.json(arquivoCsv);
 });
+app.get("/api/dadosDoUsuario", (req, res) => {
+  // aqui ele só está transformando em json
+  res.json(Dados);
+});
 
-app.post("/api", (req, res) => {
+//------------------------- POST ------------------------------
+app.post("/api/arquivos", (req, res) => {
   // esse req.body pelo oq eu entendi é o que eu estou passando lá no metodo POST no handleFile.jsx no body
   const novoArquivoCsv = req.body;
   //aqui ele pega o arquivoCsv da api e vai colocando o novo arquivo do cliente
@@ -26,8 +37,16 @@ app.post("/api", (req, res) => {
   //aqui só é uma mensagem pra testar
   res.send({ message: "Teste" });
 });
+app.post("/api/dadosDoUsuario", (req, res) => {
+  //req.body pelo oq eu entendi é o que eu estou passando lá no metodo POST
+  Dados.Nome = req.body.Nome;
+  Dados.Email = req.body.Email;
+  Dados.Categoria = req.body.Categoria;
+  res.send({ message: "Dados do usuario atualizados" });
+});
 
-app.delete('/api', (req, res) => { 
+//----------------------- DELETE ---------------------------
+app.delete('/api/arquivos', (req, res) => { 
   arquivoCsv = [];
   res.send({ message: "Deletado" });
 }) 

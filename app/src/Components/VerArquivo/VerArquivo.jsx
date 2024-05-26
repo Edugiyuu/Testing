@@ -7,14 +7,13 @@ import "../VerArquivo/VerArquivo.css";
 import { UserContext } from '../../Hooks/UserContext';
 const VerArquivo = () => {
   
-  const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
+  const {saldo, setSaldo, nome, setNome,arquivoCsv, setArquivoCsv} = useContext(UserContext);
 
   const [valoresJuntosArray, setValoresJuntosArray] = useState([]);
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
   const [colunasEscondidas, setColunasEscondidas] = useState(false);
   const [colunasDaTabelaExtras, setColunasDaTabelaExtras] = useState(['Tipo','Nomes','CPF','Banco']);
 
-  //State to store the values
   const [values, setValues] = useState([]);
   const [valuesExtras, setValuesExtras] = useState([]);
 
@@ -30,7 +29,6 @@ const VerArquivo = () => {
         const valuesArray = [];
         const valuesExtrasArray = [];
 
-        // Iterating data to get column name and their values
         results.data.map((d) => {
         
           const todosOsValores = Object.values(d);
@@ -45,11 +43,11 @@ const VerArquivo = () => {
 
 
           valuesExtrasArray.push(Object.values(d['Descrição'].split(' - ')));
-          console.log(todosOsValores);
+          
         });
 
         
-        setParsedData(results.data);
+        setArquivoCsv(results.data);
 
         
         setColunasDaTabela(rowsArray[0]);

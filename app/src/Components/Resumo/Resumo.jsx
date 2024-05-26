@@ -3,7 +3,7 @@ import { UserContext } from '../../Hooks/UserContext';
 import Papa from "papaparse";
 
 const Resumo = () => {
-  const {saldo, setSaldo, nome, setNome,parsedData, setParsedData} = useContext(UserContext);
+  const {saldo, setSaldo, nome, setNome,arquivoCsv, setArquivoCsv} = useContext(UserContext);
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
 
@@ -22,11 +22,11 @@ const Resumo = () => {
     let maiorGasto = 0
     let descDoMaiorLucro = ''
   
-    for (let i = 0; i < parsedData.length; i++) {
+    for (let i = 0; i < arquivoCsv.length; i++) {
       //NÂO TIRAR O .split("/").reverse().join("-") já que o javascript não entende que é uma data ele acha que é uma string normal
-      const dataFormatada = parsedData[i].Data.split("/").reverse().join("-");
-      const valor = Number(parsedData[i].Valor);
-      const descricaoFormatada = parsedData[i].Descrição;
+      const dataFormatada = arquivoCsv[i].Data.split("/").reverse().join("-");
+      const valor = Number(arquivoCsv[i].Valor);
+      const descricaoFormatada = arquivoCsv[i].Descrição;
 
   
       if (dataFormatada >= dataInicio && dataFormatada <= dataFim) {

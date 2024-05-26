@@ -35,7 +35,7 @@ import { UserContext } from './Hooks/UserContext';
     complete: function (results) {
       const parsedDataArray = results.data;
 
-      fetch("http://localhost:3001/api", {
+      fetch("http://localhost:3001/api/arquivos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,13 +50,11 @@ import { UserContext } from './Hooks/UserContext';
         console.error(error);
       });
 
-      // Atualiza parsedData localmente
+      
       const parserDataJuntoENovo = arquivoCsv.concat(parsedDataArray);
       console.log(parserDataJuntoENovo);
       
       setArquivoCsv(parserDataJuntoENovo);
-
-      // Atualiza os totais
       atualizarTotais(parserDataJuntoENovo);
     },
   });

@@ -9,7 +9,7 @@ import { UserContext } from "../../Hooks/UserContext";
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 
 export function Calendario() {
-  const {saldo,nome,parsedData,totalPositivo,totalNegativo,totalFinal} = useContext(UserContext);
+  const {saldo,nome,arquivoCsv,totalPositivo,totalNegativo,totalFinal} = useContext(UserContext);
  
   const [cadaData, setCadaData] = useState([]);
   const [todosOsValores, setTodosOsValores] = useState([]);
@@ -18,7 +18,7 @@ export function Calendario() {
 
   useEffect(() => {
     const formatarDatas = () => {
-      const datasFormatadas = parsedData.map(item => {
+      const datasFormatadas = arquivoCsv.map(item => {
         const partesData = item.Data.split('/');
         const dataFormatada = partesData.reverse().join('-');
         return dataFormatada;
@@ -32,24 +32,24 @@ export function Calendario() {
     setCadaData(datasFormatadas);
     console.log(datasFormatadas);
     
-  }, [parsedData]);
+  }, [arquivoCsv]);
 
   var percorerOsValores = [];
   var percorerOsValoresNegativos = [];
   var percorerOsValoresPositivos = [];
   useEffect(() => {
-    for (let i = 0; i < parsedData.length; i++) {
+    for (let i = 0; i < arquivoCsv.length; i++) {
       
-      percorerOsValores.push(parsedData[i].Valor);
-      if (parsedData[i].Valor < 0) {
-        percorerOsValoresNegativos.push(parsedData[i].Valor)
+      percorerOsValores.push(arquivoCsv[i].Valor);
+      if (arquivoCsv[i].Valor < 0) {
+        percorerOsValoresNegativos.push(arquivoCsv[i].Valor)
         setValoresNegativos(percorerOsValoresNegativos)
       }else{
-        percorerOsValoresPositivos.push(parsedData[i].Valor)
+        percorerOsValoresPositivos.push(arquivoCsv[i].Valor)
         setValoresPositivos(percorerOsValoresPositivos)
       }
       
-    }  }, [parsedData])
+    }  }, [arquivoCsv])
         
 
     const eventosCompletos = cadaData.map((data, index) => ({
@@ -62,7 +62,7 @@ export function Calendario() {
     const todosEventos = [
       ...eventosCompletos,
     ];
-    console.log(parsedData);
+    console.log(arquivoCsv);
     useEffect(() => {
     
       const containerEl = document.getElementById('external-events');

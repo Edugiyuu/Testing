@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../Hooks/UserContext";
 import handleFileChange from '../HandleFile';
-/* import "../GiveInfos.css"; */
+
 export const GiveInfos = () => {
   const { saldo, setSaldo, nome, setNome, arquivoCsv, setArquivoCsv, totalPositivo, setTotalPositivo, totalNegativo, setTotalNegativo, totalFinal, setTotalFinal } = useContext(UserContext);
-  const [novoSaldo, setNovoSaldo] = useState(saldo);
-  const [novoNome, setNovoNome] = useState(nome);
+  const [novoSaldo, setNovoSaldo] = useState('');
+  const [novoNome, setNovoNome] = useState('');
 
   const handleSaldoChange = (event) => {
     const novoValor = event.target.value;
@@ -20,13 +20,42 @@ export const GiveInfos = () => {
   const salvarNovoSaldoENome = () => {
     setSaldo(novoSaldo);
     setNome(novoNome);
+    
+    fetch("http://localhost:3001/api/dadosDoUsuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ Nome: novoNome, Categoria: '',Email: ''})
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    fetch("http://localhost:3001/api/dadosDoUsuario", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
   };
 
   const limparDados = () => {
     setSaldo(0);
     setNome('');
     setArquivoCsv([]);
-    fetch("http://localhost:3001/api", {
+    fetch("http://localhost:3001/api/arquivos", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -41,29 +70,24 @@ export const GiveInfos = () => {
     });
   };
 
-//é a mesma coisa que está no UserContext
-//evitar essa repetição
   function atualizarTotais(arquivoCsv) {
-
     let totalPositivo = 0;
     let totalNegativo = 0;
     let totalFinal = 0;
 
     for (let i = 0; i < arquivoCsv.length; i++) {
-    
       const valor = Number(arquivoCsv[i].Valor);
-      
       if (valor > 0) {
-        totalPositivo += valor
+        totalPositivo += valor;
       } else {
-        totalNegativo += valor
+        totalNegativo += valor;
       }
-      totalFinal += valor
+      totalFinal += valor;
     }
 
     setTotalPositivo(Math.floor(totalPositivo));
     setTotalNegativo(Math.floor(totalNegativo));
-    setTotalFinal(Math.floor(totalFinal) );
+    setTotalFinal(Math.floor(totalFinal));
   }
 
   return (
