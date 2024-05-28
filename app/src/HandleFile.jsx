@@ -26,36 +26,43 @@ import { UserContext } from './Hooks/UserContext';
   });
 }; */
 
- // tem como fazer com o for tambem só que com o concat é melhor
-
  const handleFileChange = (event, setArquivoCsv, arquivoCsv, atualizarTotais) => {
   Papa.parse(event.target.files[0], {
     header: true,
     skipEmptyLines: true,
     complete: function (results) {
-      const parsedDataArray = results.data;
+      const arquivoAtualCsv = results.data;
+
+      for (let i = 0; i < arquivoAtualCsv.length; i++) {
+        arquivoAtualCsv[i].Categoria = "Sem Categoria";
+      }
 
       fetch("http://localhost:3001/api/arquivos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(parsedDataArray), 
+        body: JSON.stringify(arquivoAtualCsv), 
       })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        console.log(arquivoAtualCsv[0].Categoria);
+        console.log(arquivoAtualCsv);
       })
       .catch((error) => {
         console.error(error);
       });
 
       
-      const parserDataJuntoENovo = arquivoCsv.concat(parsedDataArray);
-      console.log(parserDataJuntoENovo);
+      const arquivoCsvFinal = arquivoCsv.concat(arquivoAtualCsv);
       
-      setArquivoCsv(parserDataJuntoENovo);
-      atualizarTotais(parserDataJuntoENovo);
+      console.log(arquivoCsv);
+      console.log(arquivoAtualCsv);
+      console.log(arquivoCsvFinal);
+      
+      setArquivoCsv(arquivoCsvFinal);
+      atualizarTotais(arquivoCsvFinal);
     },
   });
 };

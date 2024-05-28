@@ -12,30 +12,41 @@ export const UserStorage = ({ children }) => {
   const [cadaArquivoCsv, setCadaArquivoCsv] = useState([]);
 
   useEffect(() => {
+    fetch("http://localhost:3001/api/dadosDoUsuario")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setNome(data.Nome)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },[])
+  
+  useEffect(() => {
     fetch("http://localhost:3001/api/arquivos")
       .then((res) => res.json())
       .then((data) => {
         //O data é o que tem dentro da api que está no index.js no server que no caso é o let arquivoCsv = [];
-        console.log("Todos os arquivos", data);
+        console.log("Todos os arquivos csv já colocados", data);
         console.log("primeiro arquivo", data[0]);
-        setCadaArquivoCsv(data)
-        console.log(cadaArquivoCsv);
         console.log("primeiro valor do primeiro arquivo", data[0][0].Valor);
-
-        var todosOsArquivosJuntos = [];
+        setCadaArquivoCsv(data)
+        
+        var todosOsArquivosCsvJuntos = [];
         for (let i = 0; i < data.length; i++) {
-          todosOsArquivosJuntos = todosOsArquivosJuntos.concat(data[i]);
+          todosOsArquivosCsvJuntos = todosOsArquivosCsvJuntos.concat(data[i]);
         }
-        console.log(todosOsArquivosJuntos);
-        setArquivoCsv(todosOsArquivosJuntos);
+        console.log(todosOsArquivosCsvJuntos);
+         setArquivoCsv(todosOsArquivosCsvJuntos); 
         
         let totalPositivo = 0;
         let totalNegativo = 0;
         let totalFinal = 0;
 
-        for (let i = 0; i < todosOsArquivosJuntos.length; i++) {
+        for (let i = 0; i < todosOsArquivosCsvJuntos.length; i++) {
           //aqui ele vai pegar todos os valores que estão juntos
-          const valor = Number(todosOsArquivosJuntos[i].Valor);
+          const valor = Number(todosOsArquivosCsvJuntos[i].Valor);
 
           if (valor > 0) {
             totalPositivo += valor;

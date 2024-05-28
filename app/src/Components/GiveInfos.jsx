@@ -35,19 +35,6 @@ export const GiveInfos = () => {
     .catch((error) => {
       console.error(error);
     });
-    fetch("http://localhost:3001/api/dadosDoUsuario", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        }
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
 
   };
 
@@ -108,7 +95,7 @@ export const GiveInfos = () => {
         type="text"
         onChange={handleNomeChange}
         value={novoNome}
-        placeholder="Informe seu novo nome"
+        placeholder="Informe seu nome"
       />
       <button onClick={salvarNovoSaldoENome}>
         Salvar Dados

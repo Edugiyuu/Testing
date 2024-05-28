@@ -5,10 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 const Arquivos = () => {
   const { cadaArquivoCsv, setCadaArquivoCsv } = useContext(UserContext);
-
-  if (cadaArquivoCsv == []) {
-    setCadaArquivoCsv()
-  }
+  console.log(cadaArquivoCsv);
   return (
     <div className='Arquivos'>
       <h1>Seus Arquivos: </h1>
@@ -17,7 +14,7 @@ const Arquivos = () => {
           <h2>Arquivo numero {index + 1}</h2>
           <p>Quantidade de itens: {arquivo.length}</p>
           <p>Index {index}</p>
-          <NavLink className={'NavLink'} to={`/verArquivo/`}>Arquivos</NavLink>
+          <NavLink className='NavLink' to={`/verArquivo/${index}`}>Ver Arquivo</NavLink>
         </div>
       ))}
     </div>

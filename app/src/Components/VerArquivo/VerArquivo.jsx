@@ -1,10 +1,11 @@
 
-import React, { useState,useContext} from 'react';
+import React, { useState,useContext,useEffect} from 'react';
 import Papa from "papaparse";
 import XLSX from 'xlsx'
 import { LineChart, Line } from 'recharts';
 import "../VerArquivo/VerArquivo.css";
 import { UserContext } from '../../Hooks/UserContext';
+import { useParams } from 'react-router-dom';
 const VerArquivo = () => {
   
   const {saldo, setSaldo, nome, setNome,arquivoCsv, setArquivoCsv} = useContext(UserContext);
@@ -16,10 +17,18 @@ const VerArquivo = () => {
 
   const [values, setValues] = useState([]);
   const [valuesExtras, setValuesExtras] = useState([]);
-
+  const { id } = useParams();
+  useEffect(() => {
+    fetch("http://localhost:3001/api/arquivos")
+      .then((res) => res.json())
+      .then((data) => {
+       console.log(data[id]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   const handleFileChange = (event) => {
-    /* const primeiraPlanilha = event.target.files[0];
-    console.log(primeiraPlanilha); */
      // Passing file data (event.target.files[0]) to parse using Papa.parse
     Papa.parse(event.target.files[0], {
       header: true,
@@ -31,9 +40,11 @@ const VerArquivo = () => {
 
         results.data.map((d) => {
         
-          const todosOsValores = Object.values(d);
-          todosOsValores.pop()
-          valuesArray.push(todosOsValores)
+          const todosOsValoresEmObj = Object.values(d);
+          console.log(todosOsValoresEmObj);
+          todosOsValoresEmObj.pop()
+          valuesArray.push(todosOsValoresEmObj)
+          console.log(valuesArray);
           //valuesArray.push(Object.values(d));
 
           const todasAsColunas = Object.keys(d);

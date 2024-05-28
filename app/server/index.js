@@ -35,7 +35,7 @@ app.post("/api/arquivos", (req, res) => {
   //aqui ele pega o arquivoCsv da api e vai colocando o novo arquivo do cliente
   arquivoCsv.push(novoArquivoCsv);
   //aqui só é uma mensagem pra testar
-  res.send({ message: "Teste" });
+  res.send({ message: "Novo Arquivo" });
 });
 app.post("/api/dadosDoUsuario", (req, res) => {
   //req.body pelo oq eu entendi é o que eu estou passando lá no metodo POST
