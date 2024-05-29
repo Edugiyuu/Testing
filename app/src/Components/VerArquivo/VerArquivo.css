@@ -1,11 +1,11 @@
 .valores{
   color: rgb(0, 0, 0);
   font-size: smaller;
-  padding: 25px;
+  padding: 20px;
   border: 1px solid #5f50ff;
   border-radius: 5px;
+  
 }
 .VerArquivo{
-  
-  margin-left: 160px;
+  margin-left: 150px;
 }

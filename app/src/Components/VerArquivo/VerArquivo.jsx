@@ -1,8 +1,7 @@
 
-import React, { useState,useContext,useEffect} from 'react';
+import React, { useState,useContext,useEffect,useMemo} from 'react';
 import Papa from "papaparse";
-import XLSX from 'xlsx'
-import { LineChart, Line } from 'recharts';
+import { useTable } from "react-table";
 import "../VerArquivo/VerArquivo.css";
 import { UserContext } from '../../Hooks/UserContext';
 import { useParams } from 'react-router-dom';
@@ -23,12 +22,47 @@ const VerArquivo = () => {
       .then((res) => res.json())
       .then((data) => {
        console.log(data[id]);
+       setArquivoCsv(data[id])
+       
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-  const handleFileChange = (event) => {
+
+  // VIDEO -> https://www.youtube.com/watch?v=A9oUTEP-Q84&t=1102s&ab_channel=PedroTech
+  const data = useMemo(() => arquivoCsv, [arquivoCsv]);
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Data",
+        accessor: "Data",
+      },
+      {
+        Header: "Valor",
+        accessor: "Valor",
+      },
+      {
+        Header: "Identificador",
+        accessor: "Identificador",
+      },
+      {
+        Header: "Descrição",
+        accessor: "Descrição",
+      },
+      {
+        Header: "Categoria",
+        accessor: "Categoria",
+      },
+    
+    ],
+    []
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
+
+  /* const handleFileChange = (event) => {
      // Passing file data (event.target.files[0]) to parse using Papa.parse
     Papa.parse(event.target.files[0], {
       header: true,
@@ -74,50 +108,40 @@ const VerArquivo = () => {
       setValoresJuntosArray(valoresJuntosArray);
       },
     });
-  };
+  }; */
 
   return (
     <div className='VerArquivo'>
       <h1>{nome}</h1>
-      <input
-        type="file"
-        name="file"
-        onChange={handleFileChange}
-        accept=".csv"
-      />
+  
       <br />
       <br />
       {/* Table */}
-      <table className='tabela'>
-        <thead>
-          {/* Colunas */}
-          <tr>
-            {colunasDaTabela.map((colunas, index) => {
-              return <th key={index}>{colunas}</th>;
-            })}
-            {colunasEscondidas &&
-              colunasDaTabelaExtras.map((coluna, index) => (
-                <th key={index}>{coluna}</th>
-              ))}
-          </tr>
-        </thead>
-        <tbody>
-          {/* valor da Coluna */}
-          {valoresJuntosArray.map((valor, index) => {
-            return (
-              <tr key={index}>
-                {valor.map((valor, i) => {
-                  return (
-                    <td className="valores" key={i}>
-                      {valor}
-                    </td>
-                  );
-                })}
+      <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td className='valores'{...cell.getCellProps()}> {cell.render("Cell")} </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
     </div>
   );
 }

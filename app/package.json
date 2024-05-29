@@ -35,6 +35,7 @@
     "react-file-reader": "^1.1.4",
     "react-pdf-charts": "^0.2.5",
     "react-router-dom": "^6.22.3",
+    "react-table": "^7.8.0",
     "react-to-pdf": "^1.0.1",
     "recharts": "^2.12.3",
     "write": "^2.0.0",
