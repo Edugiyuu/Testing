@@ -4,6 +4,7 @@ import Papa from "papaparse";
 import { useTable } from "react-table";
 import "../VerArquivo/VerArquivo.css";
 import { UserContext } from '../../Hooks/UserContext';
+import DataTable from 'react-data-table-component';
 import { useParams } from 'react-router-dom';
 const VerArquivo = () => {
   
@@ -13,10 +14,15 @@ const VerArquivo = () => {
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
   const [colunasEscondidas, setColunasEscondidas] = useState(false);
   const [colunasDaTabelaExtras, setColunasDaTabelaExtras] = useState(['Tipo','Nomes','CPF','Banco']);
-
+  const [novoNome, setNovoNome] = useState('');
   const [values, setValues] = useState([]);
   const [valuesExtras, setValuesExtras] = useState([]);
   const { id } = useParams();
+
+  const handleNomeCategoria = (event) => {
+    const novoNome = event.target.value;
+    setNovoNome(novoNome);
+  };
   useEffect(() => {
     fetch("http://localhost:3001/api/arquivos")
       .then((res) => res.json())
@@ -29,11 +35,50 @@ const VerArquivo = () => {
         console.error(error);
       });
   }, []);
-
+  const columns = [
+    {
+      name: 'Categoria',
+      selector: row => row.Categoria,
+    },
+    {
+      name: 'Data',
+      selector: row => row.Data,
+    },
+    {
+      name: 'Valor',
+      selector: row => row.Valor,
+    },
+    {
+      name: 'Identificador',
+      selector: row => row.Identificador,
+    },
+    {
+      name: 'Descrição',
+      selector: row => row.Descrição,
+    },
+  ];
+  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [categoriasSelecionadas, setCategoriasSelecionadas] = React.useState([]);
+  const handleRowSelected = React.useCallback(state => {
+    setSelectedRows(state.selectedRows);
+    console.log(state.selectedRows);
+  }, []);
+  const handleDelete = () => {
+    // eslint-disable-next-line no-alert
+    if (window.confirm(`Atualizar:\r ${selectedRows.map(r => r.Categoria)}?`)) {
+      const updateCategoria = selectedRows.map(r => r.Categoria)
+      
+      
+    }
+  };
   // VIDEO -> https://www.youtube.com/watch?v=A9oUTEP-Q84&t=1102s&ab_channel=PedroTech
-  const data = useMemo(() => arquivoCsv, [arquivoCsv]);
+ /*  const data = useMemo(() => arquivoCsv, [arquivoCsv]);
   const columns = useMemo(
     () => [
+      {
+        Header: "Categoria",
+        accessor: "Categoria",
+      },
       {
         Header: "Data",
         accessor: "Data",
@@ -50,17 +95,14 @@ const VerArquivo = () => {
         Header: "Descrição",
         accessor: "Descrição",
       },
-      {
-        Header: "Categoria",
-        accessor: "Categoria",
-      },
+      
     
     ],
     []
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable({ columns, data }); */
 
   /* const handleFileChange = (event) => {
      // Passing file data (event.target.files[0]) to parse using Papa.parse
@@ -114,10 +156,18 @@ const VerArquivo = () => {
     <div className='VerArquivo'>
       <h1>{nome}</h1>
   
-      <br />
-      <br />
+      <input type="text" onChange={handleNomeCategoria}/>
+      <button key="delete" onClick={handleDelete}>Atualizar Categoria</button>
+      <DataTable
+			columns={columns}
+			data={arquivoCsv}
+      selectableRows
+      fixedHeader
+      onSelectedRowsChange={handleRowSelected}
+		/>
+
       {/* Table */}
-      <table {...getTableProps()}>
+     {/*  <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -141,7 +191,7 @@ const VerArquivo = () => {
               );
             })}
           </tbody>
-        </table>
+        </table> */}
     </div>
   );
 }

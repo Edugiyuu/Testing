@@ -1,9 +1,17 @@
-.valores{
+.rdt_TableHead{
   color: rgb(0, 0, 0);
-  font-size: smaller;
-  padding: 20px;
+  padding: 0px;
   border: 1px solid #5f50ff;
   border-radius: 5px;
+  margin-bottom:20px;
+}
+
+.rdt_TableCell{
+  color: rgb(0, 0, 0);
+  padding: 0px;
+  border: 1px solid #5f50ff;
+  border-radius: 5px;
+  
   
 }
 .VerArquivo{

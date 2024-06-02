@@ -48,7 +48,7 @@ import { UserContext } from './Hooks/UserContext';
       .then((data) => {
         console.log(data);
         console.log(arquivoAtualCsv[0].Categoria);
-        console.log(arquivoAtualCsv);
+        console.log(arquivoAtualCsv[0].Descrição);
       })
       .catch((error) => {
         console.error(error);

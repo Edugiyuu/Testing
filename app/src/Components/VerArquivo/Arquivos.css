@@ -1,12 +1,37 @@
 .CaixasDeArquivos{
   color: rgb(0, 0, 0);
-  font-size: smaller;
   padding: 25px;
   border: 1px solid #5f50ff;
   border-radius: 5px;
   margin-top: 20px;
+  
+  margin: 30px;
+  padding: 10px;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #2222 0%, #3f0ecc 100%);
+}
+.numeroDoArquivo,.numeroDeItens,.IndexDoArquivo{
+  background-color: rgba(0, 0, 0, 0);
+  color:white;
 }
 .Arquivos{
   
   margin-left: 160px;
+}
+.SemArquivo {
+  border: 3px solid #5f50ff;
+  border-radius: 5px;
+  padding: 30px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 100%; /* Ajusta a altura para centralizar verticalmente */
+}
+.NavLink2{
+  border: 3px solid #5f50ff;
+  border-radius: 5px;
+  text-decoration: none;
+  color:#5f50ff;
+  padding:20px;
 }
