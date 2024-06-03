@@ -10,19 +10,19 @@ const VerArquivo = () => {
   
   const {saldo, setSaldo, nome, setNome,arquivoCsv, setArquivoCsv} = useContext(UserContext);
 
-  const [valoresJuntosArray, setValoresJuntosArray] = useState([]);
+  /* const [valoresJuntosArray, setValoresJuntosArray] = useState([]);
   const [colunasDaTabela, setColunasDaTabela] = useState([]);
   const [colunasEscondidas, setColunasEscondidas] = useState(false);
   const [colunasDaTabelaExtras, setColunasDaTabelaExtras] = useState(['Tipo','Nomes','CPF','Banco']);
   const [novoNome, setNovoNome] = useState('');
   const [values, setValues] = useState([]);
-  const [valuesExtras, setValuesExtras] = useState([]);
-  const { id } = useParams();
+  const [valuesExtras, setValuesExtras] = useState([]);*/
+  const { id } = useParams(); 
 
-  const handleNomeCategoria = (event) => {
+   const handleNomeCategoria = (event) => {
     const novoNome = event.target.value;
     setNovoNome(novoNome);
-  };
+  }; 
   useEffect(() => {
     fetch("http://localhost:3001/api/arquivos")
       .then((res) => res.json())
@@ -64,11 +64,9 @@ const VerArquivo = () => {
     console.log(state.selectedRows);
   }, []);
   const handleDelete = () => {
-    // eslint-disable-next-line no-alert
-    if (window.confirm(`Atualizar:\r ${selectedRows.map(r => r.Categoria)}?`)) {
-      const updateCategoria = selectedRows.map(r => r.Categoria)
+    if (window.confirm(`Atualizar categorias dos itens selecionados?`)) {
       
-      
+     
     }
   };
   // VIDEO -> https://www.youtube.com/watch?v=A9oUTEP-Q84&t=1102s&ab_channel=PedroTech
@@ -166,32 +164,6 @@ const VerArquivo = () => {
       onSelectedRowsChange={handleRowSelected}
 		/>
 
-      {/* Table */}
-     {/*  <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <td className='valores'{...cell.getCellProps()}> {cell.render("Cell")} </td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table> */}
     </div>
   );
 }

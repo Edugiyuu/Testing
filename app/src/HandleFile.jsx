@@ -35,6 +35,7 @@ import { UserContext } from './Hooks/UserContext';
 
       for (let i = 0; i < arquivoAtualCsv.length; i++) {
         arquivoAtualCsv[i].Categoria = "Sem Categoria";
+        arquivoAtualCsv[i].id = i;
       }
 
       fetch("http://localhost:3001/api/arquivos", {

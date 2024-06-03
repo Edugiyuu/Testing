@@ -1,6 +1,7 @@
 import React, { useState,useContext } from 'react';
 import { UserContext } from '../../Hooks/UserContext';
 import Papa from "papaparse";
+import "../Resumo/Resumo.css";
 
 const Resumo = () => {
   const {saldo, setSaldo, nome, setNome,arquivoCsv, setArquivoCsv} = useContext(UserContext);
