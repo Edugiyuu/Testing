@@ -23,6 +23,10 @@ app.get("/api/arquivos", (req, res) => {
   // aqui ele só está transformando em json
   res.json(arquivoCsv);
 });
+app.get('/api/arquivos/:id', (req, res) => {
+    const id = req.params.id;
+    // Lógica para encontrar e retornar o arquivo com o id fornecido
+});
 app.get("/api/dadosDoUsuario", (req, res) => {
   // aqui ele só está transformando em json
   res.json(Dados);
@@ -54,3 +58,4 @@ app.delete('/api/arquivos', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+

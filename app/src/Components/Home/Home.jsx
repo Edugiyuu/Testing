@@ -5,8 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import "../Home/Home.css";
 export const Home = () => {
-  const { saldo, nome, totalPositivo, totalNegativo, totalFinal, arquivoCsv } =
-    useContext(UserContext);
+  const { saldo, nome, totalPositivo, totalNegativo, totalFinal, arquivoCsv } = useContext(UserContext);
   /*  window.location.reload(true); */
   console.log(arquivoCsv);
   const dadosDoCSV = arquivoCsv.map((item) => ({
