@@ -61,7 +61,7 @@ const Grafico = () => {
   const [mesDeGastos, setMesDeGastos] = useState(0);
   const [mesesComMaisGastos, setMesesComMaisGastos] = useState([]);
   const [mesDeLucros, setMesDeLucros] = useState(0);
-
+  const [todosOsValores, setTodosOsValores] = useState(0);
   useEffect(() => {
     const numeroMenor = [];
     let totalMenor = 0;
@@ -78,7 +78,7 @@ const Grafico = () => {
       if (arquivoCsv[i].Valor < 0) {
         totalMenor += +arquivoCsv[i].Valor;
         numeroMenor.push(arquivoCsv[i].Valor);
-        todosOsNumeros.push(arquivoCsv[i].Valor);
+        todosOsNumeros.push(Number(arquivoCsv[i].Valor));
 
         if (arquivoCsv[i].Valor < menorValor) {
           menorValor = Number(arquivoCsv[i].Valor);
@@ -92,13 +92,14 @@ const Grafico = () => {
       } else {
         totalMaior += +arquivoCsv[i].Valor;
         numeroMaior.push(arquivoCsv[i].Valor);
-        todosOsNumeros.push(arquivoCsv[i].Valor);
+        todosOsNumeros.push(Number(arquivoCsv[i].Valor));
 
         if (arquivoCsv[i].Valor > maiorValor) {
           maiorValor = Number(arquivoCsv[i].Valor);
           mesComMaisLucro = arquivoCsv[i].Data;
         }
       }
+      setTodosOsValores(todosOsNumeros)
     }
     console.log();
     setMesDeGastos(mesComMaisGasto);
@@ -108,7 +109,7 @@ const Grafico = () => {
     setTotalDeLucros(totalMaior);
 
     const arrayDeNumerosDeObjetosTotais = todosOsNumeros.map((total) => ({
-      total: parseFloat(total),
+      total: Number(total),
     }));
     setArrayDeTodosOsNumeros(arrayDeNumerosDeObjetosTotais);
 

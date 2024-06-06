@@ -6,6 +6,7 @@ import Home from './Components/Home/Home';
 import Menu from "./Components/SideMenu/Menu";
 import "./app.css";
 import Arquivos from "./Components/VerArquivo/Arquivos";
+import Test from "../src/Test";
 import VerArquivo from "./Components/VerArquivo/VerArquivo";
 import Calendario from "./Components/Calendario/Calendario";
 import { UserStorage } from "./Hooks/UserContext";
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="calendario" element={<Calendario />} />
           <Route path="resumo" element={<Resumo />} />
           <Route path="editar" element={<GiveInfos />} />
+          <Route path="test" element={<Test />} />
           {/* <Route path="*" element={<Pagina404 />}/> */}
         </Routes>
       </UserStorage>
